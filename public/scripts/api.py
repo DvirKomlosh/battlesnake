@@ -15,6 +15,7 @@ class Exceptions(Enum):
     """
 
     OK = 0
+    INVALID_DIRECTION = 1
 
     def __bool__(self):
         return self == Exceptions.OK
@@ -26,6 +27,28 @@ class Context:
 
     Each action method returns `Exceptions`, which is `Exceptions.OK` if it succeeded, or another value explaining why it failed.
     """
+
+    def set_direction(self, direction: str):
+        """
+        sets the direction of your snake's next move,
+        "U" to move Up
+        "D" to move Down
+        "L" to move Left
+        "R" to move Right
+        """
+        raise NotImplementedError("Not Implemented!")
+
+    def get_state(self):
+        """
+        returns the state of the game
+        """
+        raise NotImplementedError("Not Implemented!")
+
+    def debug(message):
+        """
+        prints a debug message
+        """
+        raise NotImplementedError("Not Implemented!")
 
     def __init__(self) -> None:
         pass

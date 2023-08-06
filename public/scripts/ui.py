@@ -233,9 +233,11 @@ def get_player_apis(game_state: GameState, player_api_code: list[str]) -> list[d
 async def simulate_background(
     game: GameState, player_names: list[str], player_apis: list
 ):
+    print("running in background")
     for _ in range(30):
         simulate_with_apis(game, player_names, player_apis)
         if game.is_over():
+            print("game's over")
             document.getElementById("loader").style.display = "none"
             return
 
@@ -273,11 +275,12 @@ def run_noui_simulation(map: str, players: list[str], player_names: list[str]):
     progress.style.display = "block"
 
     def step():
-        for _ in range(50):
+        for i in range(50):
             simulate_with_apis(game, player_names, player_globals)
             if game.is_over():
                 progress.style.display = "none"
                 clearInterval(window.noUISimulationInterval)
+
                 break
         progress.textContent = f"Simulated {game.time}s"
 
