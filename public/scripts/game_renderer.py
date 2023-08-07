@@ -15,6 +15,7 @@ def render(
     player_names: list[str],
     map_image: Image,
 ):
+    return
     # game_canvas.clear()
 
     # for player_index in range(player_count):
@@ -30,7 +31,7 @@ def render(
     #     map_image.height + 160,
     # )
     # game_canvas.clear()
-    game_canvas.draw_text("a", "black", 0, 500, 500)
+    # game_canvas.draw_text("a", "black", 0, 500, 500)
     # for i in range(game.height):
     #     for j in range(game.width):
     #         draw_empty(game_canvas, (i, j))

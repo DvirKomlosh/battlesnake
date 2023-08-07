@@ -51,18 +51,25 @@ class GameState:
     players: List[PlayerState]
     steps: int
     apples: List[Tuple[int, int]]
+
+    results: List[int]
     active_player_indices: List[int]
 
     def __init__(self, players: int):
-        self.players = [PlayerState([(5 + i, 5 + i)]) for i in range(players)]
+        self.players = [PlayerState([(2 + i, 2 + i)]) for i in range(players)]
         self.steps = 0
         self.height = 10
         self.width = 10
         self.active_player_indices = [i for i in range(len(self.players))]
+        self.results = []
 
     @property
     def time(self):
         return self.steps / STEPS_PER_SECOND
 
+    @property
+    def active_players(self):
+        return [(i, self.players[i]) for i in self.active_player_indices]
+
     def is_over(self):
-        return self.time > 100
+        return len(self.active_player_indices) <= 1
