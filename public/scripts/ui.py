@@ -233,11 +233,9 @@ def get_player_apis(game_state: GameState, player_api_code: list[str]) -> list[d
 async def simulate_background(
     game: GameState, player_names: list[str], player_apis: list
 ):
-    print("running in background")
     for _ in range(30):
         simulate_with_apis(game, player_names, player_apis)
         if game.is_over():
-            print("game's over")
             document.getElementById("loader").style.display = "none"
             return
 
