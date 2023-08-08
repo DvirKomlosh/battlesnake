@@ -7,6 +7,7 @@ and variables corresponding to the position of every game object.
 """
 
 
+import random
 from typing import List, Tuple
 from constants import STEPS_PER_SECOND, MAX_HUNGER
 from enum import Enum
@@ -36,33 +37,50 @@ class PlayerState:
     length: int
     hunger: int
     next_move: Tuple[int, int]  # "U,D,L,R"
-    last_move: Tuple[int, int]  # "
+    last_move: Tuple[int, int]
+    has_eaten_last_step: int
 
     def __init__(self, position):
         self.position = position
-        self.length = len(position)
         self.hunger = MAX_HUNGER
         self.next_move = None
         self.last_move = None
+        self.has_eaten_last_step = 2
+
+    @property
+    def length(self):
+        return len(self.position)
+
+    @property
+    def head(self):
+        if self.length == 0:
+            return None
+        return self.position[-1]
+
+    def eat(self):
+        self.hunger = MAX_HUNGER
+        self.has_eaten_last_step += 1
 
 
 class GameState:
-    height: int
-    width: int
-    players: List[PlayerState]
-    steps: int
-    apples: List[Tuple[int, int]]
+    height: int = 10
+    width: int = 10
+    players: List[PlayerState] = []
+    steps: int = 0
+    apples: List[Tuple[int, int]] = []
 
     results: List[int]
     active_player_indices: List[int]
 
     def __init__(self, players: int):
-        self.players = [PlayerState([(2 + i, 2 + i)]) for i in range(players)]
-        self.steps = 0
-        self.height = 10
-        self.width = 10
-        self.active_player_indices = [i for i in range(len(self.players))]
-        self.apples = [(2, 5), (3, 4), (9, 2)]
+        self.active_player_indices = [i for i in range(players)]
+        player_positions = self.get_random_player_positions(players)
+        self.players = [PlayerState([pos]) for pos in player_positions]
+
+        self.add_apple()
+        self.add_apple()
+        self.add_apple()
+
         self.results = []
 
     @property
@@ -73,5 +91,60 @@ class GameState:
     def active_players(self):
         return [(i, self.players[i]) for i in self.active_player_indices]
 
+    @property
+    def occupied_tiles(self):
+        ocupied = []
+        for i, player in self.active_players:
+            ocupied += [tile for tile in player.position]
+        ocupied += self.apples
+        return ocupied
+
+    @property
+    def body_tiles(self):
+        bodies = []
+        for i, player in self.active_players:
+            bodies += [tile for tile in player.position if tile != player.head]
+        return bodies
+
+    @property
+    def unoccupied_tiles(self):
+        unocupied = []
+        ocupied = self.occupied_tiles
+        for i in range(self.width):
+            for j in range(self.height):
+                if (i, j) not in ocupied:
+                    unocupied.append((i, j))
+        return unocupied
+
+    @property
+    def heads(self):
+        heads = []
+        for i, player in self.active_players:
+            heads.append(player.head)
+        return heads
+
     def is_over(self):
         return len(self.active_player_indices) <= 1
+
+    def add_apple(self):
+        unoccupied = self.unoccupied_tiles
+        new_apple_index = random.randint(0, len(unoccupied) - 1)
+        new_apple = unoccupied[new_apple_index]
+        self.apples.append(new_apple)
+
+    def in_bounds(self, position: Tuple[int, int]):
+        if position[0] < 0 or position[0] >= self.width:
+            return False
+        if position[1] < 0 or position[1] >= self.height:
+            return False
+        return True
+
+    def get_random_player_positions(self, players: int):
+        positions = []
+        unoccupied = [(i, j) for i in range(self.width) for j in range(self.height)]
+        for i in range(players):
+            new_position_index = random.randint(0, len(unoccupied) - 1)
+            new_position = unoccupied[new_position_index]
+            positions.append(new_position)
+            unoccupied.remove(new_position)
+        return positions

@@ -4,56 +4,106 @@ This method should take a state of the game and change it to the next one.
 It is not responsible for running the Player APIs, but the Player APIs
 are run immediately before it and should keep information in the game state.
 """
+import math
+import random
 from typing import Tuple
-from game_state import GameState
+from constants import MAX_APPLES
+from game_state import GameState, PlayerState
 from web_utilities import set_results, show_alert
 
+to_eliminate = []
 
-def in_bounds(state, position: Tuple[int, int]):
-    if position[0] < 0 or position[0] >= state.width:
-        return False
-    if position[1] < 0 or position[1] >= state.height:
-        return False
-    return True
+
+def add_to_result(state: GameState):
+    global to_eliminate
+    while len(to_eliminate) > 0:
+        random_player = to_eliminate[math.floor(random.random() * len(to_eliminate))]
+        state.results.append(random_player)
+        to_eliminate.remove(random_player)
+
+
+def eliminate_player(state: GameState, player_names, player, player_index, message):
+    global to_eliminate
+    show_alert(
+        f"{player_names[player_index]} was eliminated!",
+        message,
+        "blue",
+        "fa-solid fa-skull",
+        0,
+        False,
+    )
+    state.active_player_indices.remove(player_index)
+    to_eliminate.append(player_index)
+
+
+def eat_apple(state: GameState, player: PlayerState, position: Tuple[int, int]):
+    state.apples.remove(position)
+    player.eat()
 
 
 def simulate_step(state: GameState, player_names: list[str]) -> None:
     state.steps += 1
+    if state.steps == 1:
+        return
 
     # move one step per player:
     for player_index, player in state.active_players:
-        head = player.position[-1]
         if player.next_move is None:
             print("did not have next move")
             continue
 
-        new_head = tuple(map(lambda i, j: i + j, head, player.next_move))
+        new_head = tuple(map(lambda i, j: i + j, player.head, player.next_move))
 
-        if not in_bounds(state, new_head):
-            show_alert(
-                f"{player_names[player_index]} was eliminated!",
-                f"They finished in place after {state.time} seconds.",
-                "blue",
-                "fa-solid fa-skull",
-                0,
-                False,
+        if not state.in_bounds(new_head):
+            eliminate_player(
+                state, player_names, player, player_index, "exited bounds!"
             )
-            state.results.append(player)
-            state.active_player_indices.remove(player_index)
-            state.results.append(player_index)
-            if len(state.active_player_indices) == 1:
-                state.results.append(state.active_player_indices[0])
-                set_results(player_names, state.results[::-1], "map")
 
             continue
 
         player.position.append(new_head)
+
+    for player_index, player in state.active_players:
+        if player.has_eaten_last_step > 0:
+            player.has_eaten_last_step -= 1
+        else:  # remove tail:
+            player.position.pop(0)
+
+    to_eliminate = []
+    for player_index, player in state.active_players:
+        # check if head collided
+        # if hit a body, eliminate
+        if player.head in state.body_tiles:
+            to_eliminate.append((player_index, player))
+
+        # else, if hit another head, test
+        for player_index2, player2 in state.active_players:
+            if player_index2 != player_index and player2.head == player.head:
+                print("head to head collision")
+                if player2.length >= player.length:
+                    to_eliminate.append((player_index, player))
+
+    for player_index, player in to_eliminate:
+        eliminate_player(
+            state, player_names, player, player_index, "collided with a snake!"
+        )
+
+    for player_index, player in state.active_players:
+        player.hunger -= 1
+        if player.head in state.apples:
+            eat_apple(state, player, player.head)
+        else:
+            if player.hunger <= 0:
+                eliminate_player(
+                    state, player_names, player, player_index, "too hungry!"
+                )
         player.last_move = player.next_move
 
-    # for p in state.players:
-    #     if p.next_move + p.position not in d:
-    #         d[p.next_move + p.position] = p
-    #     else:
-    #         # p and d[p.next_move + p.position] fight over p.next_move + p.position
-    #         if p.length > ...:
-    #             p.length = 0
+    add_to_result(state)
+    if len(state.active_player_indices) == 1:
+        state.results.append(state.active_player_indices[0])
+    if len(state.active_player_indices) <= 1:
+        set_results(player_names, state.results[::-1], "map")
+
+    if len(state.apples) < MAX_APPLES:
+        state.add_apple()

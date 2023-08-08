@@ -1,8 +1,8 @@
 import math
 
 # """Amount of steps in a single second"""
-STEPS_PER_SECOND = 2
-MAX_HUNGER = 100
+STEPS_PER_SECOND = 0.2
+
 UP = (0, 1)
 DOWN = (0, -1)
 RIGHT = (1, 0)
@@ -20,3 +20,6 @@ DIRECTION_TO_ROTATION = {
 }
 
 TILE_SIZE = 70
+
+MAX_HUNGER = 100
+MAX_APPLES = 3
