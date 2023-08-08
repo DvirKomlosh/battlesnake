@@ -122,14 +122,12 @@ class GameCanvas:
     def __init__(
         self,
         canvas: Element,
-        player_count: int,
         map_image: Image,
         max_width: int,
         max_height: int,
         extra_height: int,
     ):
         self.canvas = canvas
-        self.player_count = player_count
         self.map_image = map_image
         self.extra_height = extra_height
 
@@ -138,10 +136,8 @@ class GameCanvas:
     def fit_into(self, max_width: int, max_height: int):
         while self.map_image.width == 0 or self.map_image.height == 0:
             raise Exception("Map image invalid!")
-        aspect_ratio = (
-            self.map_image.width
-            * self.player_count
-            / (self.map_image.height + self.extra_height)
+        aspect_ratio = self.map_image.width / (
+            self.map_image.height + self.extra_height
         )
         width = min(max_width, max_height * aspect_ratio)
         height = width / aspect_ratio
@@ -149,21 +145,14 @@ class GameCanvas:
         self.canvas.style.height = f"{height}px"
         self.canvas.width = width * window.devicePixelRatio
         self.canvas.height = height * window.devicePixelRatio
-        self.scale = self.canvas.width / self.player_count / self.map_image.width
         self.context = self.canvas.getContext("2d")
         self.context.textAlign = "center"
         self.context.textBaseline = "middle"
+        self.scale = self.canvas.width / self.map_image.width
 
-        self.canvas_map_width = self.canvas.width / self.player_count
-        self.canvas_map_height = (
-            self.canvas_map_width * self.map_image.height / self.map_image.width
-        )
-
-    def _translate_position(self, player_index: int, x: float, y: float):
+    def _translate_position(self, x: float, y: float):
         x *= self.scale
         y *= self.scale
-        x += player_index * self.map_image.width * self.scale
-
         return x, y
 
     def _translate_width(self, width: float, aspect_ratio: float):
@@ -178,19 +167,17 @@ class GameCanvas:
         self.context.fillStyle = "#fff"
         self.context.fillRect(0, 0, self.canvas.width, self.canvas.height)
 
-        for i in range(self.player_count):
-            self.context.drawImage(
-                self.map_image,
-                i * self.canvas.width / self.player_count,
-                0,
-                self.map_image.width * self.scale,
-                self.map_image.height * self.scale,
-            )
+        self.context.drawImage(
+            self.map_image,
+            0,
+            0,
+            self.map_image.width * self.scale,
+            self.map_image.height * self.scale,
+        )
 
     def draw_element(
         self,
         image: Image,
-        player_index: int,
         x: int,
         y: int,
         width: int,
@@ -206,7 +193,7 @@ class GameCanvas:
         if direction is None:
             direction = 0
 
-        x, y = self._translate_position(player_index, x, y)
+        x, y = self._translate_position(x, y)
         width, height = self._translate_width(width, image.width / image.height)
 
         if alignment == Alignment.TOP_LEFT:
@@ -224,7 +211,6 @@ class GameCanvas:
         self,
         text: str,
         color: str,
-        player_index: int,
         x: int,
         y: int,
         text_size=15,
@@ -232,15 +218,15 @@ class GameCanvas:
     ):
         if font != "":
             font += ", "
+        x, y = self._translate_position(x, y)
 
-        x, y = self._translate_position(player_index, x, y)
         self.context.font = f"{text_size * self.scale}pt {font}system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, 'Noto Emoji'"
         self.context.fillStyle = color
         self.context.fillText(text, x, y)
 
     @property
     def total_width(self):
-        return self.map_image.width * self.player_count
+        return self.map_image.width
 
 
 async def load_font(name: str, url: str):

@@ -1063,10 +1063,10 @@ clsx@1.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
-code-battles-components@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/code-battles-components/-/code-battles-components-1.0.0.tgz#50760552000b2798bca19cb31a99ff443f49f221"
-  integrity sha512-SCLyzwImJM/bDhUyWlt6Vr9psdV5F3J8OWdJY9hvwCgph89q8EcqWpLf+c7cKQaS3Sz+SHxAodGu50FE+YNF0g==
+code-battles-components@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/code-battles-components/-/code-battles-components-1.0.2.tgz#f784d524492047ea4386e8adb852e6e7eb6d65bf"
+  integrity sha512-6bRzL726d7h5t60s4U9DkWajKMvOM/jIZUl+RE24bStMZZx0P6HVVl5LvHw8XA7JyVb4swgLYZ5TiuhlFj1hpg==
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     react-countdown "^2.3.5"

@@ -118,7 +118,6 @@ def start_simulate(
     canvas = document.getElementById("simulation")
     game_canvas = GameCanvas(
         canvas,
-        player_count,
         map_image,
         document.body.clientWidth - 40,
         document.body.clientHeight - 260,

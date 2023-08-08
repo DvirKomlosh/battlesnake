@@ -43,6 +43,7 @@ class PlayerState:
         self.length = len(position)
         self.hunger = MAX_HUNGER
         self.next_move = None
+        self.last_move = None
 
 
 class GameState:
@@ -61,6 +62,7 @@ class GameState:
         self.height = 10
         self.width = 10
         self.active_player_indices = [i for i in range(len(self.players))]
+        self.apples = [(2, 5), (3, 4), (9, 2)]
         self.results = []
 
     @property
