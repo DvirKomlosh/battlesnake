@@ -8,6 +8,7 @@ It also has access to its player's index.
 from api import *
 from game_state import GameState
 from constants import UP, DOWN, LEFT, RIGHT
+import copy
 
 
 class GameContext(Context):
@@ -35,5 +36,8 @@ class GameContext(Context):
 
         self._game.players[self._player_index].next_move = str_to_vec[direction]
 
+    def get_player(self):
+        return copy.deepcopy(self._game.players[self._player_index])
+
     def get_state(self):
-        return self._game
+        return copy.deepcopy(self._game)

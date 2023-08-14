@@ -44,6 +44,12 @@ class Context:
         """
         raise NotImplementedError("Not Implemented!")
 
+    def get_player(self):
+        """
+        returns the state of the player
+        """
+        raise NotImplementedError("Not Implemented!")
+
     def debug(message):
         """
         prints a debug message

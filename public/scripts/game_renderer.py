@@ -58,7 +58,7 @@ def render(
 
 def coords_to_screencoords(game_canvas, coords):
     x, y = coords
-    return (x + 3) * (TILE_SIZE * 1.1), (y + 1) * (TILE_SIZE * 1.1)
+    return (x + 3) * (TILE_SIZE * 1.1), (11 - (y + 1)) * (TILE_SIZE * 1.1)
 
 
 def draw_empty(game_canvas: GameCanvas, assets, coords):

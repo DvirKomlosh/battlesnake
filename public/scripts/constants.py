@@ -1,7 +1,7 @@
 import math
 
 # """Amount of steps in a single second"""
-STEPS_PER_SECOND = 0.2
+STEPS_PER_SECOND = 1
 
 UP = (0, 1)
 DOWN = (0, -1)

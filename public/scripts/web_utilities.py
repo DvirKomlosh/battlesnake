@@ -81,6 +81,16 @@ def set_results(player_names: list[str], places: list[int], map: str):
         window.setResults(player_names, places, map)
 
 
+def set_many_results(player_names: list[str], places: list[int], map: str, many: int):
+    if hasattr(window, "setManyResults"):
+        window.setManyResults(player_names, places, map, many)
+
+
+def clear_many_results(player_names: list[str], map: str):
+    if hasattr(window, "clearManyResults"):
+        window.clearManyResults(player_names, map)
+
+
 def should_play():
     return "Pause" in document.getElementById("playpause").textContent
 

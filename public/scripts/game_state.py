@@ -57,6 +57,10 @@ class PlayerState:
             return None
         return self.position[-1]
 
+    @property
+    def body(self):
+        return self.position[:-1]
+
     def eat(self):
         self.hunger = MAX_HUNGER
         self.has_eaten_last_step += 1
@@ -76,12 +80,16 @@ class GameState:
         self.active_player_indices = [i for i in range(players)]
         player_positions = self.get_random_player_positions(players)
         self.players = [PlayerState([pos]) for pos in player_positions]
-
+        self.apples = []
+        self.steps = 0
         self.add_apple()
         self.add_apple()
         self.add_apple()
 
         self.results = []
+
+    def reset(self, players):
+        self.__init__(players)
 
     @property
     def time(self):
@@ -96,14 +104,13 @@ class GameState:
         ocupied = []
         for i, player in self.active_players:
             ocupied += [tile for tile in player.position]
-        ocupied += self.apples
         return ocupied
 
     @property
     def body_tiles(self):
         bodies = []
         for i, player in self.active_players:
-            bodies += [tile for tile in player.position if tile != player.head]
+            bodies += player.body
         return bodies
 
     @property
@@ -112,7 +119,7 @@ class GameState:
         ocupied = self.occupied_tiles
         for i in range(self.width):
             for j in range(self.height):
-                if (i, j) not in ocupied:
+                if (i, j) not in ocupied and (i, j) not in self.apples:
                     unocupied.append((i, j))
         return unocupied
 
@@ -124,7 +131,7 @@ class GameState:
         return heads
 
     def is_over(self):
-        return len(self.active_player_indices) <= 1
+        return len(self.active_player_indices) <= 0
 
     def add_apple(self):
         unoccupied = self.unoccupied_tiles
