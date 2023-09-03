@@ -38,7 +38,6 @@ class MyBot(CodeBattlesBot):
         best_option = options[0]
 
         for option in options:
-            # print("for ", option, "value is ", self.calculate_value(option))
             if best_value < self.calculate_value(option):
                 best_value = self.calculate_value(option)
                 best_option = option

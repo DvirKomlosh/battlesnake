@@ -9,25 +9,8 @@ and variables corresponding to the position of every game object.
 
 import random
 from typing import List, Tuple
-from constants import STEPS_PER_SECOND, MAX_HUNGER
+from constants import STEPS_PER_SECOND, MAX_HEALTH
 from enum import Enum
-
-
-# class Coordinate:
-#     x: int
-#     y: int
-
-#     def __init__(self, x, y):
-#         self.x = x
-#         self.y = y
-
-#     def __add__(self, other):
-#         self.x += other.x
-#         self.y += other.y
-
-#     def __sub__(self, other):
-#         self.x -= other.x
-#         self.y -= other.y
 
 
 class PlayerState:
@@ -35,14 +18,14 @@ class PlayerState:
         Tuple[int, int]
     ]  # position is a list of snake nodes, where the first one is the player's tail, last is head.
     length: int
-    hunger: int
+    health: int
     next_move: Tuple[int, int]  # "U,D,L,R"
     last_move: Tuple[int, int]
     has_eaten_last_step: int
 
     def __init__(self, position):
         self.position = position
-        self.hunger = MAX_HUNGER
+        self.health = MAX_HEALTH
         self.next_move = None
         self.last_move = None
         self.has_eaten_last_step = 2
@@ -62,13 +45,13 @@ class PlayerState:
         return self.position[:-1]
 
     def eat(self):
-        self.hunger = MAX_HUNGER
+        self.health = MAX_HEALTH
         self.has_eaten_last_step += 1
 
 
 class GameState:
-    height: int = 10
-    width: int = 10
+    height: int = 12
+    width: int = 12
     players: List[PlayerState] = []
     steps: int = 0
     apples: List[Tuple[int, int]] = []
@@ -101,10 +84,10 @@ class GameState:
 
     @property
     def occupied_tiles(self):
-        ocupied = []
+        occupied = []
         for i, player in self.active_players:
-            ocupied += [tile for tile in player.position]
-        return ocupied
+            occupied += [tile for tile in player.position]
+        return occupied
 
     @property
     def body_tiles(self):
@@ -115,13 +98,13 @@ class GameState:
 
     @property
     def unoccupied_tiles(self):
-        unocupied = []
-        ocupied = self.occupied_tiles
+        unoccupied = []
+        occupied = self.occupied_tiles
         for i in range(self.width):
             for j in range(self.height):
-                if (i, j) not in ocupied and (i, j) not in self.apples:
-                    unocupied.append((i, j))
-        return unocupied
+                if (i, j) not in occupied and (i, j) not in self.apples:
+                    unoccupied.append((i, j))
+        return unoccupied
 
     @property
     def heads(self):

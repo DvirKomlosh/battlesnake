@@ -5,6 +5,7 @@ It is not responsible for running the Player APIs, but the Player APIs
 are run immediately before it and should keep information in the game state.
 """
 import math
+import time
 import random
 from typing import Tuple
 from constants import MAX_APPLES
@@ -54,7 +55,14 @@ def simulate_step(
     # move one step per player:
     for player_index, player in state.active_players:
         if player.next_move is None:
-            print("did not have next move")
+            eliminate_player(
+                state,
+                player_names,
+                player,
+                player_index,
+                "did not have next move!",
+                verbose,
+            )
             continue
 
         new_head = tuple(map(lambda i, j: i + j, player.head, player.next_move))
@@ -84,7 +92,7 @@ def simulate_step(
         # else, if hit another head, test
         for player_index2, player2 in state.active_players:
             if player_index2 != player_index and player2.head == player.head:
-                print("head to head collision")
+                # print("head to head collision")
                 if player2.length >= player.length:
                     eliminate.add((player_index, player))
 
@@ -94,15 +102,16 @@ def simulate_step(
         )
 
     for player_index, player in state.active_players:
-        player.hunger -= 1
+        player.health -= 1
         if player.head in state.apples:
             eat_apple(state, player, player.head)
         else:
-            if player.hunger <= 0:
+            if player.health <= 0:
                 eliminate_player(
                     state, player_names, player, player_index, "too hungry!", verbose
                 )
         player.last_move = player.next_move
+        player.next_move = None
 
     add_to_result(state)
     if len(state.active_player_indices) == 1:
@@ -110,7 +119,7 @@ def simulate_step(
         state.active_player_indices.remove(state.active_player_indices[0])
 
     if len(state.active_player_indices) <= 1:
-        print("returning results")
+        # print("returning results")
         return (player_names, state.results[::-1], "NYC")
 
     if len(state.apples) < MAX_APPLES:

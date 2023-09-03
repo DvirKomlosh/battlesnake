@@ -7,9 +7,7 @@ You probably want to get started with `Context` methods, and have a look at `Exc
 from enum import Enum
 from typing import List, Tuple
 
-
-class PlayerState:
-    pass
+from game_state import PlayerState
 
 
 class Exceptions(Enum):
@@ -86,16 +84,9 @@ class Context:
         """
         raise NotImplementedError("Not Implemented!")
 
-    def get_health(self, player: PlayerState) -> int:
+    def get_hunger(self, player: PlayerState) -> int:
         """
-        returns the health of the snake, when this value gets to 0, the snake will be eliminated
-        """
-        raise NotImplementedError("Not Implemented!")
-
-    def get_has_eaten_last_step(self, player: PlayerState) -> int:
-        """
-        0 if the snake has not eaten last step, 1 if it had.
-        in the first step, has_eaten is set to 2, as the snake needs to strech out from its initial state.
+        returns the hunger of the snake, when this value gets to 0, the snake will be eliminated
         """
         raise NotImplementedError("Not Implemented!")
 

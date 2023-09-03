@@ -1,5 +1,7 @@
 from api import *
 import math
+import random
+import time
 
 
 def manhattan_distance(coord, coord2):
@@ -7,10 +9,7 @@ def manhattan_distance(coord, coord2):
 
 
 class MyBot(CodeBattlesBot):
-    state = None
-    players = None
-    danger_map = None
-    food_map = None
+    times = []
 
     def get_available_options(self):
         # returns all non killing coordinates for next move
@@ -32,12 +31,18 @@ class MyBot(CodeBattlesBot):
         return {"U": (x, y + 1), "D": (x, y - 1), "L": (x - 1, y), "R": (x + 1, y)}
 
     def run(self) -> None:
+        start = time.time()
         self.me = self.context.get_myself()
         move = "U"
         if len(self.get_available_options()) > 0:
             # takes the first available option which will not kill him
-            move = list(self.get_available_options().keys())[0]
+            move = list(self.get_available_options().keys())[
+                random.randint(0, len(self.get_available_options().keys()))
+            ]
         self.context.set_direction(move)
+
+        self.times.append(time.time() - start)
+        print("average time : ", sum(self.times) / len(self.times))
 
     def setup(self) -> None:
         pass

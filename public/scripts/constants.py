@@ -1,4 +1,5 @@
 import math
+import random
 
 # """Amount of steps in a single second"""
 STEPS_PER_SECOND = 1
@@ -9,17 +10,17 @@ RIGHT = (1, 0)
 LEFT = (-1, 0)
 
 IMAGES_NAMES = ["empty", "apple"]
-SNAKE_COLORS = ["red", "green", "blue"]
+SNAKE_COLORS = ["red", "green", "blue", "purple", "brown", "black", "yellow"]
 BODY_PARTS = ["body", "head"]
 
 DIRECTION_TO_ROTATION = {
-    UP: 0,
-    RIGHT: math.pi / 2,
-    DOWN: math.pi,
-    LEFT: math.pi * 1.5,
+    RIGHT: 0,
+    DOWN: math.pi / 2,
+    LEFT: math.pi,
+    UP: math.pi * 1.5,
 }
 
-TILE_SIZE = 70
+TILE_SIZE = 68
 
-MAX_HUNGER = 100
+MAX_HEALTH = 100
 MAX_APPLES = 3

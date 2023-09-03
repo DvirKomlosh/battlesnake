@@ -1,5 +1,9 @@
-import math  # Import for the players' APIs
+# Import for the players' APIs
+import math
 import time
+import random
+
+
 import traceback
 
 import api
@@ -199,6 +203,8 @@ def get_player_apis(game_state: GameState, player_api_code: list[str]) -> list[d
     player_globals = [
         {
             "math": math,
+            "random": random,
+            "time": time,
             "api": api,
             "CodeBattlesBot": api.CodeBattlesBot,
             "player_api": None,

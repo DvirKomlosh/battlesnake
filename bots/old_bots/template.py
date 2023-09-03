@@ -17,25 +17,26 @@ class MyBot(CodeBattlesBot):
         options = self.get_all_options()
         to_del = []
         for direction, coord in options.items():
-            if coord in self.context.get_occupied_tiles() or not self.context.in_bounds(
-                coord
-            ):
+            if coord in self.state.occupied_tiles or not self.state.in_bounds(coord):
                 to_del.append(direction)
         for direction in to_del:
             del options[direction]
-
         return options
 
     def get_all_options(self):
         # returns all coordinates for next move
-        x, y = self.context.get_position(self.me)[-1]
+        x, y = self.me.head
         return {"U": (x, y + 1), "D": (x, y - 1), "L": (x - 1, y), "R": (x + 1, y)}
 
+    def update_state(self):
+        self.state = self.context.get_state()
+        self.players = self.state.players
+        self.me = self.context.get_player()
+
     def run(self) -> None:
-        self.me = self.context.get_myself()
+        self.update_state()
         move = "U"
         if len(self.get_available_options()) > 0:
-            # takes the first available option which will not kill him
             move = list(self.get_available_options().keys())[0]
         self.context.set_direction(move)
 

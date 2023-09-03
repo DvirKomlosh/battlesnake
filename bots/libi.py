@@ -36,7 +36,7 @@ class MyBot(CodeBattlesBot):
         move = "U"
         if len(self.get_available_options()) > 0:
             # takes the first available option which will not kill him
-            move = list(self.get_available_options().keys())[0]
+            move = list(self.get_available_options().keys())[-1]
         self.context.set_direction(move)
 
     def setup(self) -> None:

@@ -4,4 +4,4 @@ A* , and tail-concious A* (that knows that after k turns, each tail is k positio
 
 
 interesting strategies: chase own tail:
-when your length is even, you can try make such shape that makes it impossible to kill you (except for hunger) 
+when your length is even, you can try make such shape that makes it impossible to kill you (except for hunger, and really smart head to heads) 

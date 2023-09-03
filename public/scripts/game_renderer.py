@@ -15,7 +15,7 @@ from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION
 
 # in terms of future rendering all i need to do is:
 # 1. dead snake
-# 2. UI elements (for each snake, display length and hunger)
+# 2. UI elements (for each snake, display length and health)
 # 3. better assets (snakes should be rendered on top of empty tiles, and i could draw more beutifly, for sure)
 
 
@@ -38,10 +38,12 @@ def render(
     game_canvas.draw_text(
         "Time: " + str(int(game.time)),
         "black",
-        game_canvas.total_width / 2,
+        game_canvas.total_width * 4 / 5,
         map_image.height + 100,
         50,
     )
+    if player_count <= 6:
+        draw_health(game_canvas, player_names, game, map_image)
 
     for i in range(game.height):
         for j in range(game.width):
@@ -56,9 +58,23 @@ def render(
         draw_snake_head(game_canvas, snakes_assets, i, player.head, player.last_move)
 
 
+def draw_health(game_canvas: GameCanvas, player_names, state: GameState, map_image):
+    for i, player in state.active_players:
+        game_canvas.draw_text(
+            player_names[i][:20]
+            + " " * int(1.4 * (20 - len(player_names[i])))
+            + "❤"
+            + str(state.players[i].health),
+            SNAKE_COLORS[i % len(SNAKE_COLORS)],
+            250 + 440 * (i // 3),
+            map_image.height + 50 * (1 + (i % 3)),
+            30,
+        )
+
+
 def coords_to_screencoords(game_canvas, coords):
     x, y = coords
-    return (x + 3) * (TILE_SIZE * 1.1), (11 - (y + 1)) * (TILE_SIZE * 1.1)
+    return (x + 4) * (TILE_SIZE * 1.1), (13 - (y + 1)) * (TILE_SIZE * 1.1)
 
 
 def draw_empty(game_canvas: GameCanvas, assets, coords):
