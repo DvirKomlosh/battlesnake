@@ -6,7 +6,7 @@ from typing import Dict, Tuple
 from game_state import GameState
 from js import Image
 from web_utilities import GameCanvas
-from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION
+from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION, TEXT_COLORS
 
 # TODO: make hirerchies
 # a render element that has a father, and renders reletive to the father (gets rotation,size etc from him)
@@ -61,11 +61,11 @@ def render(
 def draw_health(game_canvas: GameCanvas, player_names, state: GameState, map_image):
     for i, player in state.active_players:
         game_canvas.draw_text(
-            player_names[i][:20]
+            player_names[i][:16]
             + " " * int(1.4 * (20 - len(player_names[i])))
             + "❤"
             + str(state.players[i].health),
-            SNAKE_COLORS[i % len(SNAKE_COLORS)],
+            TEXT_COLORS[i % len(SNAKE_COLORS)],
             250 + 440 * (i // 3),
             map_image.height + 50 * (1 + (i % 3)),
             30,

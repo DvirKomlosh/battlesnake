@@ -10,7 +10,8 @@ RIGHT = (1, 0)
 LEFT = (-1, 0)
 
 IMAGES_NAMES = ["empty", "apple"]
-SNAKE_COLORS = ["red", "green", "blue", "purple", "brown", "black", "yellow"]
+SNAKE_COLORS = ["red", "green", "blue", "purple", "brown", "yellow", "black"]
+TEXT_COLORS = ["red", "green", "blue", "purple", "brown", "orange", "black"]
 BODY_PARTS = ["body", "head"]
 
 DIRECTION_TO_ROTATION = {

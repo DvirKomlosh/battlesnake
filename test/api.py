@@ -84,7 +84,7 @@ class Context:
         """
         raise NotImplementedError("Not Implemented!")
 
-    def get_hunger(self, player: PlayerState) -> int:
+    def get_health(self, player: PlayerState) -> int:
         """
         returns the hunger of the snake, when this value gets to 0, the snake will be eliminated
         """
