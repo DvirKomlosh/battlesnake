@@ -8,11 +8,10 @@ const App = () => {
         firebase: config,
         maps: ["NYC"],
         players: {
-          dvir_test: "2vTkhAGBxpZ4RlEMWOWBDL5koNI3",
-          itay: "lfASCvdrzuOFe4Xo3SsNxDqmWAu2",
-          alon: "KbwxEBS3eiegeLraBHAcaWOYESw1",
-          tommy: "ZF0t5sZ89jTs70KhTAVCWNFrajJ3",
-          gal: "6pTPA6UjecWv37n7TgW8avgiTio2",
+          hufflepuff: "iDG5e1exULVbW548MLdzVPoK35B2",
+          ravenclaw: "pDFLAWny18RZyV3wdm17QDyLJ9N2",
+          slytherin: "vhCOsaiWqCN6R3Rn00CJb6sHhnW2",
+          gryffindor: "08rJmicETybFUuBeCKx7iJtOgvo2",
         },
       }}
       routes={{}}

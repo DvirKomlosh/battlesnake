@@ -116,10 +116,17 @@ def simulate_step(
     add_to_result(state)
     if len(state.active_player_indices) == 1:
         state.results.append(state.active_player_indices[0])
-        state.active_player_indices.remove(state.active_player_indices[0])
+        if verbose:
+            show_alert(
+                f"{player_names[state.active_player_indices[0]]} has won!",
+                "",
+                "green",
+                "fa-solid fa-trophy",
+                0,
+                False,
+            )
 
     if len(state.active_player_indices) <= 1:
-        # print("returning results")
         return (player_names, state.results[::-1], "NYC")
 
     if len(state.apples) < MAX_APPLES:

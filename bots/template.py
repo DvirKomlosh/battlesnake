@@ -51,8 +51,8 @@ class MyBot(CodeBattlesBot):
         self.context.set_direction(move)
 
         self.times.append(time.time() - self.step_start_time)
-        # prints the average time every 30 steps:
-        if len(self.times) % 30 == 0:
+        # prints the average time every 100 steps:
+        if len(self.times) % 100 == 0:
             print("average time per turn : ", sum(self.times) / len(self.times))
 
     def setup(self) -> None:

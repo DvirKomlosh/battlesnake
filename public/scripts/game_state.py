@@ -114,7 +114,7 @@ class GameState:
         return heads
 
     def is_over(self):
-        return len(self.active_player_indices) <= 0
+        return len(self.active_player_indices) <= 1
 
     def add_apple(self):
         unoccupied = self.unoccupied_tiles
