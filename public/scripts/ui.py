@@ -1,16 +1,12 @@
-# Import for the players' APIs
+import asyncio
 import math
 import time
-import random
-
-
 import traceback
 
 import api
 from game_config import CONFIGURATION
 from game_state import GameState
 from js import Image, clearInterval, document, setInterval, setTimeout, window
-import js
 from pyodide.ffi import create_once_callable, create_proxy
 from web_utilities import (
     GameCanvas,
@@ -20,9 +16,6 @@ from web_utilities import (
     get_playback_speed,
     should_play,
     show_alert,
-    set_results,
-    set_many_results,
-    clear_many_results,
 )
 
 render = CONFIGURATION["render"]
@@ -36,9 +29,8 @@ def simulate_with_apis(
     game: GameState,
     player_names: list[str],
     player_globals: list[dict],
-    verbose=True,
 ):
-    results = simulate_step(game, player_names, verbose=verbose)
+    simulate_step(game, player_names)
     for index in game.active_player_indices:
         try:
             exec("if player_api is not None: player_api.run()", player_globals[index])
@@ -59,8 +51,6 @@ def simulate_with_apis(
                 "red",
                 "fa-solid fa-exclamation",
             )
-            return None
-    return results
 
 
 def ui_render(
@@ -83,24 +73,15 @@ def ui_render(
             fraction = int(playback_speed) // 8
             for i in range(fraction):
                 if not game.is_over() and not breakpoint_reached:
-                    results = simulate_with_apis(game, player_names, player_globals)
+                    simulate_with_apis(game, player_names, player_globals)
                     if game.time == breakpoint_time:
                         breakpoint_reached = True
                 if game.is_over() and should_play():
-                    if results == None:
-                        return
-                    names, places, map = results
-                    set_results(names, places, map)
-
                     document.getElementById("playpause").click()
             playback_speed /= fraction
         else:
-            results = simulate_with_apis(game, player_names, player_globals)
+            simulate_with_apis(game, player_names, player_globals)
             if game.is_over() and should_play():
-                if results == None:
-                    return
-                names, places, map = results
-                set_results(names, places, map)
                 document.getElementById("playpause").click()
             breakpoint_reached = game.time == breakpoint_time
 
@@ -132,17 +113,42 @@ def start_simulate(
     player_names: list[str],
     map_image: Image,
     player_globals: list,
+    url_params: str,
     *args,
 ):
+    hide_logs = "log=false" in url_params
     player_count = len(players)
     canvas = document.getElementById("simulation")
     game_canvas = GameCanvas(
         canvas,
+        player_count,
         map_image,
-        document.body.clientWidth - 40,
-        document.body.clientHeight - 260,
+        document.body.clientWidth - 40
+        if hide_logs
+        else document.body.clientWidth - 440,
+        document.body.clientHeight - 280,
         CONFIGURATION["extra_height"],
     )
+
+    def update_game_canvas(event):
+        game_canvas.fit_into(
+            document.body.clientWidth - 40
+            if hide_logs
+            else document.body.clientWidth - 440,
+            document.body.clientHeight - 280,
+        )
+        ui_render(
+            game_canvas,
+            player_count,
+            game,
+            player_names,
+            map_image,
+            player_globals,
+            *args,
+        )
+
+    window.addEventListener("resize", create_proxy(update_game_canvas))
+
     document.getElementById("loader").style.display = "none"
     ui_render(
         game_canvas,
@@ -156,13 +162,7 @@ def start_simulate(
 
     def step():
         if not game.is_over():
-            results = simulate_with_apis(game, player_names, player_globals)
-
-            if game.is_over():
-                if results == None:
-                    return
-                names, places, map = results
-                set_results(names, places, map)
+            simulate_with_apis(game, player_names, player_globals)
         ui_render(
             game_canvas,
             player_count,
@@ -203,8 +203,6 @@ def get_player_apis(game_state: GameState, player_api_code: list[str]) -> list[d
     player_globals = [
         {
             "math": math,
-            "random": random,
-            "time": time,
             "api": api,
             "CodeBattlesBot": api.CodeBattlesBot,
             "player_api": None,
@@ -278,11 +276,12 @@ async def simulate_background(
     )
 
 
-async def initialize_simulation(
-    map: str, players: list[str], player_names: list[str], search: str
+async def initialize_simulation_async(
+    map: str, players: list[str], player_names: list[str], url_params: str
 ):
     game = create_initial_state(len(players), map)
     player_globals = get_player_apis(game, players)
+
 
     map_image = await download_image(
         "/images/maps/" + map.lower().replace(" ", "_") + ".png"
@@ -290,7 +289,18 @@ async def initialize_simulation(
 
     args = await initial_setup(player_names)
 
-    start_simulate(players, game, player_names, map_image, player_globals, *args)
+    start_simulate(
+        players, game, player_names, map_image, player_globals, url_params, *args
+    )
+
+
+def initialize_simulation(
+    map: str, players: list[str], player_names: list[str], url_params: str
+):
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(
+        initialize_simulation_async(map, players, player_names, url_params)
+    )
 
 
 def run_noui_simulation(map: str, players: list[str], player_names: list[str]):
@@ -300,18 +310,11 @@ def run_noui_simulation(map: str, players: list[str], player_names: list[str]):
     progress.style.display = "block"
 
     def step():
-        for i in range(50):
-            results = simulate_with_apis(game, player_names, player_globals)
-
+        for _ in range(50):
+            simulate_with_apis(game, player_names, player_globals)
             if game.is_over():
-                if results == None:
-                    return
-
-                names, places, map = results
-                set_results(names, places, map)
                 progress.style.display = "none"
                 clearInterval(window.noUISimulationInterval)
-
                 break
         progress.textContent = f"Simulated {game.time}s"
 
@@ -320,39 +323,4 @@ def run_noui_simulation(map: str, players: list[str], player_names: list[str]):
         10,
     )
 
-
-def run_many_noui_simulation(
-    map: str, players: list[str], player_names: list[str], number_of_simulations: int
-):
-    clear_many_results(player_names, map)
-    progress = document.getElementById("noui-progress")
-    game = create_initial_state(len(players), map)
-    player_globals = get_player_apis(game, players)
-    progress.style.display = "block"
-
-    def simulate():
-        progress = document.getElementById("noui-progress")
-        amt = window.localStorage.getItem("AmountResults")
-        progress.textContent = "simulating game number " + str(int(amt) + 1)
-
-        for _ in range(100):
-            results = simulate_with_apis(
-                game, player_names, player_globals, verbose=False
-            )
-            if game.is_over():
-                if results == None:
-                    return
-
-                names, places, map = results
-                set_many_results(names, places, map, number_of_simulations)
-                game.reset(len(players))
-                progress.style.display = "block"
-                if (int(amt) + 1) == number_of_simulations:  # done
-                    clearInterval(window.noUISimulationInterval)
-                    progress.style.display = "none"
-                break
-
-    window.noUISimulationInterval = setInterval(
-        create_proxy(simulate),
-        30,
-    )
+window.runPython = create_proxy(lambda x: exec(x))

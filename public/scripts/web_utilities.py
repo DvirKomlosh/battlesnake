@@ -38,11 +38,8 @@ def download_images(sources: list[tuple[str, str]]) -> dict[str, Image]:
                 break
         if to_remove:
             remaining_images.remove(to_remove)
-        else:
-            print(str(image) + " not in remaining")
 
         remaining -= 1
-        print(remaining_images)
         if remaining == 0:
             result.set_result(images)
 
@@ -81,14 +78,14 @@ def set_results(player_names: list[str], places: list[int], map: str):
         window.setResults(player_names, places, map)
 
 
-def set_many_results(player_names: list[str], places: list[int], map: str, many: int):
-    if hasattr(window, "setManyResults"):
-        window.setManyResults(player_names, places, map, many)
+def download_json(filename: str, contents: str):
+    if hasattr(window, "downloadJson"):
+        window.downloadJson(filename, contents)
 
 
-def clear_many_results(player_names: list[str], map: str):
-    if hasattr(window, "clearManyResults"):
-        window.clearManyResults(player_names, map)
+def console_log(player_index: int, text: str, color: str):
+    if hasattr(window, "consoleLog"):
+        window.consoleLog(player_index, text, color)
 
 
 def should_play():
@@ -132,22 +129,26 @@ class GameCanvas:
     def __init__(
         self,
         canvas: Element,
+        player_count: int,
         map_image: Image,
         max_width: int,
         max_height: int,
         extra_height: int,
     ):
         self.canvas = canvas
+        self.player_count = player_count
         self.map_image = map_image
         self.extra_height = extra_height
 
         self.fit_into(max_width, max_height)
 
     def fit_into(self, max_width: int, max_height: int):
-        while self.map_image.width == 0 or self.map_image.height == 0:
+        if self.map_image.width == 0 or self.map_image.height == 0:
             raise Exception("Map image invalid!")
-        aspect_ratio = self.map_image.width / (
-            self.map_image.height + self.extra_height
+        aspect_ratio = (
+            self.map_image.width
+            * self.player_count
+            / (self.map_image.height + self.extra_height)
         )
         width = min(max_width, max_height * aspect_ratio)
         height = width / aspect_ratio
@@ -155,14 +156,21 @@ class GameCanvas:
         self.canvas.style.height = f"{height}px"
         self.canvas.width = width * window.devicePixelRatio
         self.canvas.height = height * window.devicePixelRatio
+        self.scale = self.canvas.width / self.player_count / self.map_image.width
         self.context = self.canvas.getContext("2d")
         self.context.textAlign = "center"
         self.context.textBaseline = "middle"
-        self.scale = self.canvas.width / self.map_image.width
 
-    def _translate_position(self, x: float, y: float):
+        self.canvas_map_width = self.canvas.width / self.player_count
+        self.canvas_map_height = (
+            self.canvas_map_width * self.map_image.height / self.map_image.width
+        )
+
+    def _translate_position(self, player_index: int, x: float, y: float):
         x *= self.scale
         y *= self.scale
+        x += player_index * self.map_image.width * self.scale
+
         return x, y
 
     def _translate_width(self, width: float, aspect_ratio: float):
@@ -177,17 +185,19 @@ class GameCanvas:
         self.context.fillStyle = "#fff"
         self.context.fillRect(0, 0, self.canvas.width, self.canvas.height)
 
-        self.context.drawImage(
-            self.map_image,
-            0,
-            0,
-            self.map_image.width * self.scale,
-            self.map_image.height * self.scale,
-        )
+        for i in range(self.player_count):
+            self.context.drawImage(
+                self.map_image,
+                i * self.canvas.width / self.player_count,
+                0,
+                self.map_image.width * self.scale,
+                self.map_image.height * self.scale,
+            )
 
     def draw_element(
         self,
         image: Image,
+        player_index: int,
         x: int,
         y: int,
         width: int,
@@ -203,7 +213,7 @@ class GameCanvas:
         if direction is None:
             direction = 0
 
-        x, y = self._translate_position(x, y)
+        x, y = self._translate_position(player_index, x, y)
         width, height = self._translate_width(width, image.width / image.height)
 
         if alignment == Alignment.TOP_LEFT:
@@ -221,6 +231,7 @@ class GameCanvas:
         self,
         text: str,
         color: str,
+        player_index: int,
         x: int,
         y: int,
         text_size=15,
@@ -228,24 +239,21 @@ class GameCanvas:
     ):
         if font != "":
             font += ", "
-        x, y = self._translate_position(x, y)
 
+        x, y = self._translate_position(player_index, x, y)
         self.context.font = f"{text_size * self.scale}pt {font}system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, 'Noto Emoji'"
         self.context.fillStyle = color
         self.context.fillText(text, x, y)
 
     @property
     def total_width(self):
-        return self.map_image.width
+        return self.map_image.width * self.player_count
 
 
 async def load_font(name: str, url: str):
     ff = FontFace.new(name, f"url({url})")
-    print("Created", ff, name, url)
     await ff.load()
-    print("Loaded", ff, name, url)
     document.fonts.add(ff)
-    print("Added", ff, name, url)
 
 
 class Stub:
