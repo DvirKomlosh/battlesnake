@@ -4,13 +4,14 @@ This method should take a state of the game and change it to the next one.
 It is not responsible for running the Player APIs, but the Player APIs
 are run immediately before it and should keep information in the game state.
 """
+
 import math
 import time
 import random
 from typing import Tuple
 from constants import MAX_APPLES
 from game_state import GameState, PlayerState
-from web_utilities import show_alert
+from code_battles.utilities import show_alert
 
 to_eliminate = []
 
@@ -24,20 +25,12 @@ def add_to_result(state: GameState):
 
 
 def eliminate_player(
-    state: GameState, player_names, player, player_index, message, verbose
+    state: GameState, player_names, player, player_index, message, verbose, battles
 ):
     global to_eliminate
-    if verbose:
-        show_alert(
-            f"{player_names[player_index]} was eliminated!",
-            message,
-            "blue",
-            "fa-solid fa-skull",
-            0,
-            False,
-        )
     state.active_player_indices.remove(player_index)
     to_eliminate.append(player_index)
+    battles.eliminate_player(player_index, message)
 
 
 def eat_apple(state: GameState, player: PlayerState, position: Tuple[int, int]):
@@ -46,7 +39,7 @@ def eat_apple(state: GameState, player: PlayerState, position: Tuple[int, int]):
 
 
 def simulate_step(
-    state: GameState, player_names: list[str], verbose: bool = True
+    state: GameState, player_names: list[str], verbose: bool = True, battles=None
 ) -> None:
     state.steps += 1
     if state.steps == 1:
@@ -62,6 +55,7 @@ def simulate_step(
                 player_index,
                 "did not have next move!",
                 verbose,
+                battles,
             )
             continue
 
@@ -69,7 +63,13 @@ def simulate_step(
 
         if not state.in_bounds(new_head):
             eliminate_player(
-                state, player_names, player, player_index, "exited bounds!", verbose
+                state,
+                player_names,
+                player,
+                player_index,
+                "exited bounds!",
+                verbose,
+                battles,
             )
 
             continue
@@ -98,7 +98,13 @@ def simulate_step(
 
     for player_index, player in eliminate:
         eliminate_player(
-            state, player_names, player, player_index, "collided with a snake!", verbose
+            state,
+            player_names,
+            player,
+            player_index,
+            "collided with a snake!",
+            verbose,
+            battles,
         )
 
     for player_index, player in state.active_players:
@@ -108,7 +114,13 @@ def simulate_step(
         else:
             if player.health <= 0:
                 eliminate_player(
-                    state, player_names, player, player_index, "too hungry!", verbose
+                    state,
+                    player_names,
+                    player,
+                    player_index,
+                    "too hungry!",
+                    verbose,
+                    battles,
                 )
         player.last_move = player.next_move
         player.next_move = None
@@ -116,15 +128,6 @@ def simulate_step(
     add_to_result(state)
     if len(state.active_player_indices) == 1:
         state.results.append(state.active_player_indices[0])
-        if verbose:
-            show_alert(
-                f"{player_names[state.active_player_indices[0]]} has won!",
-                "",
-                "green",
-                "fa-solid fa-trophy",
-                0,
-                False,
-            )
 
     if len(state.active_player_indices) <= 1:
         return (player_names, state.results[::-1], "NYC")

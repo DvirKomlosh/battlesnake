@@ -3,7 +3,6 @@
 import asyncio
 from typing import Callable, Union
 
-import pyscript
 from js import Audio, Element, FontFace, Image, document, window
 
 
@@ -70,22 +69,34 @@ def show_alert(
     title: str, alert: str, color: str, icon: str, limit_time: int = 5000, is_code=True
 ):
     if hasattr(window, "showAlert"):
-        window.showAlert(title, alert, color, icon, limit_time, is_code)
+        try:
+            window.showAlert(title, alert, color, icon, limit_time, is_code)
+        except Exception as e:
+            print(e)
 
 
-def set_results(player_names: list[str], places: list[int], map: str):
+def set_results(player_names: list[str], places: list[int], map: str, verbose: bool):
     if hasattr(window, "setResults"):
-        window.setResults(player_names, places, map)
+        try:
+            window.setResults(player_names, places, map, verbose)
+        except Exception as e:
+            print(e)
 
 
 def download_json(filename: str, contents: str):
     if hasattr(window, "downloadJson"):
-        window.downloadJson(filename, contents)
+        try:
+            window.downloadJson(filename, contents)
+        except Exception as e:
+            print(e)
 
 
 def console_log(player_index: int, text: str, color: str):
     if hasattr(window, "consoleLog"):
-        window.consoleLog(player_index, text, color)
+        try:
+            window.consoleLog(player_index, text, color)
+        except Exception as e:
+            print(e)
 
 
 def should_play():
@@ -254,15 +265,3 @@ async def load_font(name: str, url: str):
     ff = FontFace.new(name, f"url({url})")
     await ff.load()
     document.fonts.add(ff)
-
-
-class Stub:
-    def __init__(self, other):
-        for key in dir(other):
-            if key.startswith("_"):
-                continue
-            setattr(
-                self,
-                key,
-                lambda *args, ctt=getattr(other, key), **kwargs: ctt(*args, **kwargs),
-            )

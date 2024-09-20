@@ -1,11 +1,9 @@
-"""
-
-"""
+""" """
 
 from typing import Dict, Tuple
 from game_state import GameState
 from js import Image
-from web_utilities import GameCanvas
+from code_battles.utilities import GameCanvas
 from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION, TEXT_COLORS
 
 # TODO: make hirerchies

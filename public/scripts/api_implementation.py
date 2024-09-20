@@ -8,6 +8,7 @@ It also has access to its player's index.
 
 from typing import List, Tuple
 from api import *
+from code_battles.utilities import console_log
 from game_state import GameState, PlayerState
 from constants import UP, DOWN, LEFT, RIGHT
 import copy
@@ -77,3 +78,24 @@ class GameContext(Context):
 
     def get_has_eaten_last_step(self, player: PlayerState) -> int:
         return player.has_eaten_last_step
+
+    def log_info(self, text: str):
+        console_log(
+            self._player_index,
+            f"[INFO {str(self._game.time).rjust(8)}s] {text}",
+            "#f8f8f2",
+        )
+
+    def log_warning(self, text: str):
+        console_log(
+            self._player_index,
+            f"[WARNING {str(self._game.time).rjust(5)}s] {text}",
+            "#f1fa8c",
+        )
+
+    def log_error(self, text: str):
+        console_log(
+            self._player_index,
+            f"[ERROR {str(self._game.time).rjust(7)}s] {text}",
+            "#ff5555",
+        )

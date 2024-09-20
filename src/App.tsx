@@ -8,6 +8,7 @@ const App = () => {
       configuration={{
         firebase: config,
         maps: ["NYC"],
+        runningCountOptions: [10, 100, 1000],
       }}
       routes={{}}
     />

@@ -16,29 +16,21 @@ class TwoDContext:
     fillStyle: str
 
     @staticmethod
-    def fillText(text: str, x: int, y: int):
-        pass
+    def fillText(text: str, x: int, y: int): ...
     @staticmethod
-    def fillRect(x: int, y: int, width: int, height: int):
-        pass
+    def fillRect(x: int, y: int, width: int, height: int): ...
     @staticmethod
-    def drawImage(image: Image, x: int, y: int, width: int, height: int):
-        pass
+    def drawImage(image: Image, x: int, y: int, width: int, height: int): ...
     @staticmethod
-    def clearRect(startX: int, endX: int, width: int, height: int):
-        pass
+    def clearRect(startX: int, endX: int, width: int, height: int): ...
     @staticmethod
-    def save():
-        pass
+    def save(): ...
     @staticmethod
-    def restore():
-        pass
+    def restore(): ...
     @staticmethod
-    def translate(x: float, y: float):
-        pass
+    def translate(x: float, y: float): ...
     @staticmethod
-    def rotate(radians: float):
-        pass
+    def rotate(radians: float): ...
 
 class Styles:
     width: str
@@ -58,75 +50,57 @@ class Element:
     style: Styles
 
     @staticmethod
-    def getContext(dimensions: str) -> TwoDContext:
-        pass
+    def getContext(dimensions: str) -> TwoDContext: ...
     @staticmethod
-    def click():
-        pass
+    def click(): ...
     @staticmethod
-    def getElementsByClassName(classname: str) -> HTMLCollection:
-        pass
+    def getElementsByClassName(classname: str) -> HTMLCollection: ...
 
 class document:
     body: Element
 
     @staticmethod
-    def getElementById(id: str) -> Element:
-        pass
+    def getElementById(id: str) -> Element: ...
 
 class Matches:
     matches: bool
 
-class Event:
-    pass
+class Event: ...
 
 class window:
     devicePixelRatio: float
 
     @staticmethod
-    def matchMedia(media: str) -> Matches:
-        pass
+    def matchMedia(media: str) -> Matches: ...
+    @staticmethod
+    def createEventListener(event: str, callable: JsCallable) -> None: ...
 
 class Audio:
     @staticmethod
-    def new(src: str) -> Audio:
-        pass
+    def new(src: str) -> Audio: ...
     @staticmethod
-    def cloneNode(p: bool) -> Audio:
-        pass
+    def cloneNode(p: bool) -> Audio: ...
     @staticmethod
-    def play() -> None:
-        pass
+    def play() -> None: ...
 
 class HTMLCollection:
     @staticmethod
-    def to_py() -> list[Element]:
-        pass
+    def to_py() -> list[Element]: ...
 
 class Image(Element):
     @staticmethod
-    def new() -> Image:
-        pass
+    def new() -> Image: ...
     src: str
     onload: Callable[[Event], None]
     onerror: Callable[[Event], None]
 
-def clearInterval(id: int) -> None:
-    pass
-
-def setInterval(fn: JsCallable, period: int) -> int:
-    pass
-
-def clearInterval(id: int):
-    pass
-
-def setTimeout(fn: JsCallable, period: int) -> None:
-    pass
+def clearInterval(id: int) -> None: ...
+def setInterval(fn: JsCallable, period: int) -> int: ...
+def clearInterval(id: int): ...
+def setTimeout(fn: JsCallable, period: int) -> None: ...
 
 class FontFace:
     @staticmethod
-    def new(name: str, url: str):
-        pass
+    def new(name: str, url: str): ...
     @staticmethod
-    def load():
-        pass
+    def load(): ...

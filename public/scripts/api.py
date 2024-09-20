@@ -99,8 +99,31 @@ class Context:
         """
         raise NotImplementedError("Not Implemented!")
 
-    def __init__(self) -> None:
-        pass
+    ### GENERAL METHODS ###
+
+    def log_info(self, text: str):
+        """
+        Prints the text to the console as an info message.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
+
+    def log_warning(self, text: str):
+        """
+        Prints the text to the console as a warning.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
+
+    def log_error(self, text: str):
+        """
+        Prints the text to the console as an error.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
 
 
 class CodeBattlesBot:

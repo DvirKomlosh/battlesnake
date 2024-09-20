@@ -6,7 +6,7 @@ from api_implementation import GameContext
 from game_renderer import render
 from game_simulator import simulate_step
 from game_state import GameState
-from web_utilities import download_images
+from code_battles.utilities import download_images
 from constants import SNAKE_COLORS, BODY_PARTS, IMAGES_NAMES
 
 
