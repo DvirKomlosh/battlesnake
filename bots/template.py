@@ -1,7 +1,4 @@
 from api import *
-import math
-import random
-import time
 
 
 def manhattan_distance(coord, coord2):
@@ -53,7 +50,8 @@ class MyBot(CodeBattlesBot):
         self.times.append(time.time() - self.step_start_time)
         # prints the average time every 100 steps:
         if len(self.times) % 100 == 0:
-            print("average time per turn : ", sum(self.times) / len(self.times))
+            average = sum(self.times) / len(self.times)
+            self.context.log_info(f"average time per turn : {average}")
 
     def setup(self) -> None:
         pass
