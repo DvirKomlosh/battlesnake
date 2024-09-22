@@ -83,9 +83,10 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
             )
             play_sound("player_eliminated")
         self._eliminated.append(player_index)
+        # TODO: this is step for now, but should really be the actual time.
         console_log(
             -1,
-            f"[Game {self.time}s] Player #{player_index + 1} ({self.player_names[player_index]}) was eliminated: {reason}",
+            f"[Game {self.step}s] Player #{player_index + 1} ({self.player_names[player_index]}) was eliminated: {reason}",
             "white",
         )
 

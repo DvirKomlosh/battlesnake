@@ -142,6 +142,6 @@ def simulate_step(
         state.add_apple()
         console_log(
             -1,
-            f"[Game {battles.time}s] An apple was created at {state.apples[-1]}!",
+            f"[Game {state.time}s] An apple was created at {state.apples[-1]}!",
             "white",
         )
