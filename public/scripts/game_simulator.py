@@ -113,7 +113,7 @@ def simulate_step(
         if player.head in state.apples:
             console_log(
                 -1,
-                f"[Game {battles.time}s] Player #{player_index + 1} ({battles.player_names[player_index]}) ate an apple!",
+                f"[Game {state.time}s] Player #{player_index + 1} ({battles.player_names[player_index]}) ate an apple!",
                 "white",
             )
             eat_apple(state, player, player.head)
