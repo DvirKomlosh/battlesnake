@@ -15,22 +15,14 @@ class PlayerState:
     health: int
     """The current health of the snake."""
 
-    @property
-    def length(self):
-        """The current length of the snake."""
-        return len(self.position)
+    length: int
+    """The current length of the snake."""
 
-    @property
-    def head(self):
-        """The location of the head of the snake."""
-        if self.length == 0:
-            return None
-        return self.position[-1]
+    head: Tuple[int, int]
+    """The location of the head of the snake."""
 
-    @property
-    def body(self):
-        """The location list of everything but the head of the snake."""
-        return self.position[:-1]
+    body: List[Tuple[int, int]]
+    """The location list of everything but the head of the snake."""
 
 
 class Exceptions(Enum):
@@ -169,6 +161,8 @@ class CodeBattlesBot:
     context: Context
 
     def __init__(self, context: Context):
+        """Do not override this function."""
+
         self.context = context
         self.setup()
 
@@ -179,9 +173,13 @@ class CodeBattlesBot:
         If you need to define any instance variables like in a constructor, do it here.
         """
 
+        pass
+
     def run(self) -> None:
         """
         This method will be called once every game step.
 
         Interact with the game using `self.context`.
         """
+
+        pass
