@@ -54,6 +54,9 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
     def get_steps_per_second(self):
         return 20
 
+    def get_board_count(self):
+        return len(self.player_names)
+
     def get_map_path(self, map: str):
         return "/images/maps/" + map.lower().replace(" ", "_") + ".png"
 
@@ -120,7 +123,7 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
         if not self.background:
             self.canvas = GameCanvas(
                 document.getElementById("simulation"),
-                len(player_names),
+                self.get_board_count(),
                 self.map_image,
                 document.body.clientWidth - 440
                 if console_visible

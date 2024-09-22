@@ -59,5 +59,8 @@ class BattleSnake(CodeBattles[GameState, GameContext, type(api)]):
     def get_steps_per_second(self):
         return 20
 
+    def get_board_count(self):
+        return 1
+
 
 game = BattleSnake()
