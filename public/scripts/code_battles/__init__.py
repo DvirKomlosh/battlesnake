@@ -5,7 +5,13 @@ import time
 import random
 
 from typing import Any, Generic, List, TypeVar
-from code_battles.utilities import GameCanvas, download_image, set_results, show_alert
+from code_battles.utilities import (
+    GameCanvas,
+    console_log,
+    download_image,
+    set_results,
+    show_alert,
+)
 from js import Image, document, window
 from pyscript.ffi import create_proxy
 
@@ -75,6 +81,11 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
                 False,
             )
         self._eliminated.append(player_index)
+        console_log(
+            -1,
+            f"[Game {self.time}s] Player #{player_index + 1} ({self.player_names[player_index]}) was eliminated: {reason}",
+            "white",
+        )
 
     def __init__(self):
         window._startSimulation = create_proxy(self._start_simulation)

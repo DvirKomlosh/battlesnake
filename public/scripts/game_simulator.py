@@ -11,7 +11,7 @@ import random
 from typing import Tuple
 from constants import MAX_APPLES
 from game_state import GameState, PlayerState
-from code_battles.utilities import show_alert
+from code_battles.utilities import console_log, show_alert
 
 to_eliminate = []
 
@@ -110,6 +110,11 @@ def simulate_step(
     for player_index, player in state.active_players:
         player.health -= 1
         if player.head in state.apples:
+            console_log(
+                -1,
+                f"[Game {battles.time}s] Player #{player_index + 1} ({battles.player_names[player_index]}) ate an apple!",
+                "white",
+            )
             eat_apple(state, player, player.head)
         else:
             if player.health <= 0:
@@ -134,3 +139,8 @@ def simulate_step(
 
     if len(state.apples) < MAX_APPLES:
         state.add_apple()
+        console_log(
+            -1,
+            f"[Game {battles.time}s] An apple was created at {state.apples[-1]}!",
+            "white",
+        )
