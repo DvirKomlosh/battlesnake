@@ -11,7 +11,7 @@ import random
 from typing import Tuple
 from constants import MAX_APPLES
 from game_state import GameState, PlayerState
-from code_battles.utilities import console_log, show_alert
+from code_battles.utilities import console_log, play_sound, show_alert
 
 to_eliminate = []
 
@@ -36,6 +36,7 @@ def eliminate_player(
 def eat_apple(state: GameState, player: PlayerState, position: Tuple[int, int]):
     state.apples.remove(position)
     player.eat()
+    play_sound("apple")
 
 
 def simulate_step(

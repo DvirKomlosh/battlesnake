@@ -9,6 +9,7 @@ from code_battles.utilities import (
     GameCanvas,
     console_log,
     download_image,
+    play_sound,
     set_results,
     show_alert,
 )
@@ -80,6 +81,7 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
                 0,
                 False,
             )
+            play_sound("player_eliminated")
         self._eliminated.append(player_index)
         console_log(
             -1,
