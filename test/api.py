@@ -7,7 +7,30 @@ You probably want to get started with `Context` methods, and have a look at `Exc
 from enum import Enum
 from typing import List, Tuple
 
-from game_state import PlayerState
+
+class PlayerState:
+    position: List[Tuple[int, int]]
+    """A list of snake nodes, where the first one is the player's tail, last is head."""
+
+    health: int
+    """The current health of the snake."""
+
+    @property
+    def length(self):
+        """The current length of the snake."""
+        return len(self.position)
+
+    @property
+    def head(self):
+        """The location of the head of the snake."""
+        if self.length == 0:
+            return None
+        return self.position[-1]
+
+    @property
+    def body(self):
+        """The location list of everything but the head of the snake."""
+        return self.position[:-1]
 
 
 class Exceptions(Enum):
@@ -86,12 +109,42 @@ class Context:
 
     def get_health(self, player: PlayerState) -> int:
         """
-        returns the hunger of the snake, when this value gets to 0, the snake will be eliminated
+        returns the health of the snake, when this value gets to 0, the snake will be eliminated
         """
         raise NotImplementedError("Not Implemented!")
 
-    def __init__(self) -> None:
-        pass
+    def get_has_eaten_last_step(self, player: PlayerState) -> int:
+        """
+        0 if the snake has not eaten last step, 1 if it had.
+        in the first step, has_eaten is set to 2, as the snake needs to strech out from its initial state.
+        """
+        raise NotImplementedError("Not Implemented!")
+
+    ### GENERAL METHODS ###
+
+    def log_info(self, text: str):
+        """
+        Prints the text to the console as an info message.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
+
+    def log_warning(self, text: str):
+        """
+        Prints the text to the console as a warning.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
+
+    def log_error(self, text: str):
+        """
+        Prints the text to the console as an error.
+
+        **Warning:** Writing to log every time the `run` method is called might slow down the game.
+        """
+        raise NotImplementedError("Log")
 
 
 class CodeBattlesBot:

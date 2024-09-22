@@ -6,7 +6,6 @@ For example, there must be some variables which are set from the user APIs,
 and variables corresponding to the position of every game object.
 """
 
-
 import random
 from typing import List, Tuple
 from constants import STEPS_PER_SECOND, MAX_HEALTH

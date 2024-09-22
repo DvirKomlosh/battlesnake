@@ -9,7 +9,28 @@ from typing import List, Tuple
 
 
 class PlayerState:
-    pass
+    position: List[Tuple[int, int]]
+    """A list of snake nodes, where the first one is the player's tail, last is head."""
+
+    health: int
+    """The current health of the snake."""
+
+    @property
+    def length(self):
+        """The current length of the snake."""
+        return len(self.position)
+
+    @property
+    def head(self):
+        """The location of the head of the snake."""
+        if self.length == 0:
+            return None
+        return self.position[-1]
+
+    @property
+    def body(self):
+        """The location list of everything but the head of the snake."""
+        return self.position[:-1]
 
 
 class Exceptions(Enum):
