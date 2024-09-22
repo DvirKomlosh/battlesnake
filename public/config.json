@@ -7,6 +7,7 @@
         "/scripts/game_simulator.py": "./game_simulator.py",
         "/scripts/game_state.py": "./game_state.py",
         "/scripts/main.py": "./main.py",
+        "/scripts/worker.py": "./worker.py",
         "/scripts/code_battles/__init__.py": "./code_battles/__init__.py",
         "/scripts/code_battles/utilities.py": "./code_battles/utilities.py"
     }
