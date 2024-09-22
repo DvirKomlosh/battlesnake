@@ -106,7 +106,9 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
         document.getElementById("playpause").onclick = create_proxy(
             lambda _: asyncio.get_event_loop().run_until_complete(self._play_pause())
         )
-        document.getElementById("step").onclick = create_proxy(lambda _: self._step())
+        step_element = document.getElementById("step")
+        if step_element is not None:
+            step_element.onclick = create_proxy(lambda _: self._step())
 
         self._initialized = True
 
@@ -287,10 +289,10 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
         )
 
     def _get_breakpoint(self):
-        value = document.getElementById("breakpoint").value
-        if value == "":
+        breakpoint_element = document.getElementById("breakpoint")
+        if breakpoint_element is None or breakpoint_element.value == "":
             return -1
-        return float(value)
+        return float(breakpoint_element.value)
 
     async def _play_pause(self):
         await asyncio.sleep(0.05)

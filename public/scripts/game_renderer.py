@@ -61,12 +61,12 @@ def draw_health(game_canvas: GameCanvas, player_names, state: GameState, map_ima
     for i, player in state.active_players:
         game_canvas.draw_text(
             player_names[i][:16]
-            + " " * int(1.4 * (15 - len(player_names[i])))
+            + " " * int(1.4 * (7 - len(player_names[i])))
             + "❤"
             + str(state.players[i].health),
             TEXT_COLORS[i % len(SNAKE_COLORS)],
             0,
-            250 + 440 * (i // 2),
+            150 + 300 * (i // 2),
             map_image.height + 75 * (1 + (i % 2)),
             34,
         )
