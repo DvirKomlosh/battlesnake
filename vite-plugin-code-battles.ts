@@ -1,5 +1,5 @@
 import { execSync } from "child_process"
-import { existsSync, readdirSync, rmSync } from "fs"
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs"
 import { join } from "path"
 
 export default function codeBattles() {
@@ -7,18 +7,22 @@ export default function codeBattles() {
     name: "code-battles",
     buildStart: () => {
       const directory = join("public", "scripts")
-      const file = "all.zip"
-      const fullFile = join(directory, file)
-      if (existsSync(fullFile)) {
-        rmSync(fullFile)
+      const file = join("public", "config.json")
+      let config: any = {}
+      if (existsSync(file)) {
+        config = JSON.parse(readFileSync(file).toString())
       }
-      execSync(
-        `cd ${directory} && zip ${file} ` +
-          readdirSync(directory, { recursive: true })
-            .filter((x) => x !== "main.py")
-            .join(" ")
-      )
-      console.log(`✨ Rebuilt ${file} for Code Battles (PyScript)`)
+      config.files = {}
+      const files = readdirSync(directory, { recursive: true })
+      for (const file of files) {
+        if (file.includes("__pycache__") || !file.toString().endsWith(".py")) {
+          continue
+        }
+
+        config.files["/scripts/" + file] = "./" + file
+      }
+      writeFileSync(file, JSON.stringify(config, null, 4))
+      console.log(`✨ Refreshed config.json to include all Python files`)
     },
   }
 }
