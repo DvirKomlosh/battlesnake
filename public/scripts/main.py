@@ -1,14 +1,14 @@
-from code_battles import CodeBattles
+from code_battles import CodeBattles, run_game
 from code_battles.utilities import download_images
 import api
-from api_implementation import GameContext
+from api_implementation import APIImplementation
 from game_renderer import render
 from game_simulator import simulate_step
 from game_state import GameState
 from constants import SNAKE_COLORS, BODY_PARTS, IMAGES_NAMES
 
 
-class BattleSnake(CodeBattles[GameState, GameContext, type(api)]):
+class BattleSnake(CodeBattles[GameState, APIImplementation, type(api)]):
     async def setup(self):
         self.snakes = await download_images(
             [
@@ -51,7 +51,7 @@ class BattleSnake(CodeBattles[GameState, GameContext, type(api)]):
         return api
 
     def create_game_context(self, player_index: int):
-        return GameContext(self.state, player_index)
+        return APIImplementation(self.state, player_index)
 
     def get_extra_height(self):
         return 180
@@ -63,4 +63,5 @@ class BattleSnake(CodeBattles[GameState, GameContext, type(api)]):
         return 1
 
 
-game = BattleSnake()
+if __name__ == "__main__":
+    run_game(BattleSnake())

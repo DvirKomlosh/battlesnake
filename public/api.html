@@ -57,49 +57,49 @@
 
             </li>
             <li>
-                    <a class="class" href="#Context">Context</a>
+                    <a class="class" href="#API">API</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#Context.set_direction">set_direction</a>
+                                <a class="function" href="#API.set_direction">set_direction</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_myself">get_myself</a>
+                                <a class="function" href="#API.get_myself">get_myself</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_apples">get_apples</a>
+                                <a class="function" href="#API.get_apples">get_apples</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_game_size">get_game_size</a>
+                                <a class="function" href="#API.get_game_size">get_game_size</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_occupied_tiles">get_occupied_tiles</a>
+                                <a class="function" href="#API.get_occupied_tiles">get_occupied_tiles</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.in_bounds">in_bounds</a>
+                                <a class="function" href="#API.in_bounds">in_bounds</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_active_players">get_active_players</a>
+                                <a class="function" href="#API.get_active_players">get_active_players</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_position">get_position</a>
+                                <a class="function" href="#API.get_position">get_position</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_length">get_length</a>
+                                <a class="function" href="#API.get_length">get_length</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_health">get_health</a>
+                                <a class="function" href="#API.get_health">get_health</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.get_has_eaten_last_step">get_has_eaten_last_step</a>
+                                <a class="function" href="#API.get_has_eaten_last_step">get_has_eaten_last_step</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.log_info">log_info</a>
+                                <a class="function" href="#API.log_info">log_info</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.log_warning">log_warning</a>
+                                <a class="function" href="#API.log_warning">log_warning</a>
                         </li>
                         <li>
-                                <a class="function" href="#Context.log_error">log_error</a>
+                                <a class="function" href="#API.log_error">log_error</a>
                         </li>
                 </ul>
 
@@ -135,7 +135,7 @@
                 <h1 class="modulename">Code Battles API</h1>
                         <div class="docstring"><p>Welcome to the API Documentation!</p>
 
-<p>You probably want to get started with <code><a href="#Context">Context</a></code> methods, and have a look at <code><a href="#Exceptions">Exceptions</a></code>.</p>
+<p>You probably want to get started with <code>Context</code> methods, and have a look at <code><a href="#Exceptions">Exceptions</a></code>.</p>
 </div>
 
                 
@@ -271,23 +271,24 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
                                 </dl>
                             </div>
                 </section>
-                <section id="Context">
+                <section id="API">
                     <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Context</span>:
+    <span class="name">API</span>:
 
         
     </div>
-    <a class="headerlink" href="#Context"></a>
+    <a class="headerlink" href="#API"></a>
     
-            <div class="docstring"><p>The main access point for your bot. Access this using <code>self.context</code> inside your <code>run</code> method.</p>
+            <div class="docstring"><p>test
+The main access point for your bot. Access this using <code>self.context</code> inside your <code>run</code> method.</p>
 
 <p>Each action method returns <code><a href="#Exceptions">Exceptions</a></code>, which is <code><a href="#Exceptions.OK">Exceptions.OK</a></code> if it succeeded, or another value explaining why it failed.</p>
 </div>
 
 
-                            <div id="Context.set_direction" class="classattr">
+                            <div id="API.set_direction" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -295,7 +296,7 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.set_direction"></a>
+    <a class="headerlink" href="#API.set_direction"></a>
     
             <div class="docstring"><p>sets the direction of your snake's next move,
 "U" to move Up
@@ -306,7 +307,7 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
 
                             </div>
-                            <div id="Context.get_myself" class="classattr">
+                            <div id="API.get_myself" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -314,14 +315,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_myself"></a>
+    <a class="headerlink" href="#API.get_myself"></a>
     
             <div class="docstring"><p>returns your own player state</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_apples" class="classattr">
+                            <div id="API.get_apples" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -329,14 +330,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_apples"></a>
+    <a class="headerlink" href="#API.get_apples"></a>
     
             <div class="docstring"><p>returns a list of the coordinates (x,y) where apples are located.</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_game_size" class="classattr">
+                            <div id="API.get_game_size" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -344,14 +345,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_game_size"></a>
+    <a class="headerlink" href="#API.get_game_size"></a>
     
             <div class="docstring"><p>returns the width,height of the game map.</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_occupied_tiles" class="classattr">
+                            <div id="API.get_occupied_tiles" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -359,14 +360,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_occupied_tiles"></a>
+    <a class="headerlink" href="#API.get_occupied_tiles"></a>
     
             <div class="docstring"><p>returns a list of tiles occupied by snakes, as coordinates (x,y)</p>
 </div>
 
 
                             </div>
-                            <div id="Context.in_bounds" class="classattr">
+                            <div id="API.in_bounds" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -374,14 +375,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.in_bounds"></a>
+    <a class="headerlink" href="#API.in_bounds"></a>
     
             <div class="docstring"><p>returns true if coord (a coordinate (x,y)) is in the bounds of the game map</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_active_players" class="classattr">
+                            <div id="API.get_active_players" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -389,14 +390,14 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_active_players"></a>
+    <a class="headerlink" href="#API.get_active_players"></a>
     
             <div class="docstring"><p>returns a list of all active players</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_position" class="classattr">
+                            <div id="API.get_position" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -404,7 +405,7 @@ If a method was successful, it always returns <code><a href="#Exceptions.OK">OK<
 
         
     </div>
-    <a class="headerlink" href="#Context.get_position"></a>
+    <a class="headerlink" href="#API.get_position"></a>
     
             <div class="docstring"><p>returns a list of the tiles player is occupying as coords (x,y)
 the tail is at the first position (position[0]), head is at the last position (position[-1])</p>
@@ -412,7 +413,7 @@ the tail is at the first position (position[0]), head is at the last position (p
 
 
                             </div>
-                            <div id="Context.get_length" class="classattr">
+                            <div id="API.get_length" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -420,14 +421,14 @@ the tail is at the first position (position[0]), head is at the last position (p
 
         
     </div>
-    <a class="headerlink" href="#Context.get_length"></a>
+    <a class="headerlink" href="#API.get_length"></a>
     
             <div class="docstring"><p>returns the length of the snake</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_health" class="classattr">
+                            <div id="API.get_health" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -435,14 +436,14 @@ the tail is at the first position (position[0]), head is at the last position (p
 
         
     </div>
-    <a class="headerlink" href="#Context.get_health"></a>
+    <a class="headerlink" href="#API.get_health"></a>
     
             <div class="docstring"><p>returns the health of the snake, when this value gets to 0, the snake will be eliminated</p>
 </div>
 
 
                             </div>
-                            <div id="Context.get_has_eaten_last_step" class="classattr">
+                            <div id="API.get_has_eaten_last_step" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -450,7 +451,7 @@ the tail is at the first position (position[0]), head is at the last position (p
 
         
     </div>
-    <a class="headerlink" href="#Context.get_has_eaten_last_step"></a>
+    <a class="headerlink" href="#API.get_has_eaten_last_step"></a>
     
             <div class="docstring"><p>0 if the snake has not eaten last step, 1 if it had.
 in the first step, has_eaten is set to 2, as the snake needs to strech out from its initial state.</p>
@@ -458,7 +459,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
 
                             </div>
-                            <div id="Context.log_info" class="classattr">
+                            <div id="API.log_info" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -466,7 +467,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
         
     </div>
-    <a class="headerlink" href="#Context.log_info"></a>
+    <a class="headerlink" href="#API.log_info"></a>
     
             <div class="docstring"><p>Prints the text to the console as an info message.</p>
 
@@ -475,7 +476,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
 
                             </div>
-                            <div id="Context.log_warning" class="classattr">
+                            <div id="API.log_warning" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -483,7 +484,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
         
     </div>
-    <a class="headerlink" href="#Context.log_warning"></a>
+    <a class="headerlink" href="#API.log_warning"></a>
     
             <div class="docstring"><p>Prints the text to the console as a warning.</p>
 
@@ -492,7 +493,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
 
                             </div>
-                            <div id="Context.log_error" class="classattr">
+                            <div id="API.log_error" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
@@ -500,7 +501,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
 
         
     </div>
-    <a class="headerlink" href="#Context.log_error"></a>
+    <a class="headerlink" href="#API.log_error"></a>
     
             <div class="docstring"><p>Prints the text to the console as an error.</p>
 
@@ -542,7 +543,7 @@ in the first step, has_eaten is set to 2, as the snake needs to strech out from 
                             <div id="CodeBattlesBot.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">CodeBattlesBot</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">context</span><span class="p">:</span> <span class="n"><a href="#Context">Context</a></span></span>)</span>
+        <span class="name">CodeBattlesBot</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">context</span><span class="p">:</span> <span class="n"><a href="#API">API</a></span></span>)</span>
 
         
     </div>

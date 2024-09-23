@@ -39,8 +39,9 @@ class Exceptions(Enum):
         return self == Exceptions.OK
 
 
-class Context:
+class API:
     """
+    test
     The main access point for your bot. Access this using `self.context` inside your `run` method.
 
     Each action method returns `Exceptions`, which is `Exceptions.OK` if it succeeded, or another value explaining why it failed.
@@ -158,9 +159,9 @@ class CodeBattlesBot:
     ```
     """
 
-    context: Context
+    context: API
 
-    def __init__(self, context: Context):
+    def __init__(self, context: API):
         """Do not override this function."""
 
         self.context = context

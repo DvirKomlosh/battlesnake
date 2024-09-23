@@ -7,14 +7,14 @@ It also has access to its player's index.
 """
 
 from typing import List, Tuple
-from api import *
+from api import API, Exceptions
 from code_battles.utilities import console_log
 from game_state import GameState, PlayerState
 from constants import UP, DOWN, LEFT, RIGHT
 import copy
 
 
-class GameContext(Context):
+class APIImplementation(API):
     _game: GameState
     _player_index: int
     _copied_state: GameState
