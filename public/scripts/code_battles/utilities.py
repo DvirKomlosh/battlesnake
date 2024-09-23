@@ -119,7 +119,10 @@ def play_sound(sound: str):
     if sound not in SOUNDS:
         SOUNDS[sound] = Audio.new("/sounds/" + sound + ".mp3")
 
-    SOUNDS[sound].cloneNode(True).play()
+    volume = window.localStorage.getItem("Volume") or 0
+    sound = SOUNDS[sound].cloneNode(True)
+    sound.volume = volume
+    sound.play()
 
 
 async def with_timeout(fn: Callable[[], None], timeout_seconds: float):

@@ -178,7 +178,7 @@ class CodeBattles(Generic[GameStateType, GameContextType, APIType]):
             for context in contexts
         ]
         for index, api_code in enumerate(player_codes):
-            if api_code != "":
+            if api_code != "" and api_code is not None:
                 if f"class MyBot({bot_base_class_name}):" not in api_code:
                     show_alert(
                         f"Code Exception in 'Player {index + 1}' API!",
