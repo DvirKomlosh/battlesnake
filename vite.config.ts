@@ -1,7 +1,7 @@
 import react from "@vitejs/plugin-react-swc"
 import { join } from "path"
 import { defineConfig, searchForWorkspaceRoot } from "vite"
-import CodeBattles from "./vite-plugin-code-battles"
+import CodeBattles from "vite-plugin-code-battles"
 
 // https://vitejs.dev/config/
 export default defineConfig({

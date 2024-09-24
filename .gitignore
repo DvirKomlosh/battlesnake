@@ -4,3 +4,5 @@ node_modules
 dist
 src/firebase.json
 __pycache__
+public/scripts/code_battles
+public/pyscript
