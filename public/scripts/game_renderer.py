@@ -104,7 +104,6 @@ def draw_snake_body(game_canvas: GameCanvas, snakes_assets, player_number, coord
         TILE_SIZE,
     )
 
-
 def draw_snake_head(
     game_canvas: GameCanvas, snakes_assets, player_number, coords, last_move
 ):
