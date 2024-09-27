@@ -3,6 +3,7 @@
         "/scripts/api.py": "./api.py",
         "/scripts/api_implementation.py": "./api_implementation.py",
         "/scripts/code_battles/__init__.py": "./code_battles/__init__.py",
+        "/scripts/code_battles/battles.py": "./code_battles/battles.py",
         "/scripts/code_battles/utilities.py": "./code_battles/utilities.py",
         "/scripts/constants.py": "./constants.py",
         "/scripts/game_renderer.py": "./game_renderer.py",

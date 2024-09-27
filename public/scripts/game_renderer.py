@@ -35,11 +35,9 @@ def render(
 
     game_canvas.draw_text(
         "Time: " + str(int(game.time)),
-        "black",
-        0,
         game_canvas.total_width * 4 / 5,
         map_image.height + 100,
-        50,
+        text_size=50,
     )
     if player_count <= 6:
         draw_health(game_canvas, player_names, game, map_image)
@@ -64,11 +62,10 @@ def draw_health(game_canvas: GameCanvas, player_names, state: GameState, map_ima
             + " " * int(1.4 * (7 - len(player_names[i])))
             + "❤"
             + str(state.players[i].health),
-            TEXT_COLORS[i % len(SNAKE_COLORS)],
-            0,
             150 + 300 * (i // 2),
             map_image.height + 75 * (1 + (i % 2)),
-            34,
+            color=TEXT_COLORS[i % len(SNAKE_COLORS)],
+            text_size=34,
         )
 
 
@@ -81,7 +78,6 @@ def draw_empty(game_canvas: GameCanvas, assets, coords):
     x, y = coords_to_screencoords(game_canvas, coords)
     game_canvas.draw_element(
         assets["empty"],
-        0,
         x,
         y,
         TILE_SIZE,
@@ -92,7 +88,6 @@ def draw_apple(game_canvas: GameCanvas, assets, coords: Tuple[int, int]):
     x, y = coords_to_screencoords(game_canvas, coords)
     game_canvas.draw_element(
         assets["apple"],
-        0,
         x,
         y,
         TILE_SIZE,
@@ -104,7 +99,6 @@ def draw_snake_body(game_canvas: GameCanvas, snakes_assets, player_number, coord
     color = SNAKE_COLORS[player_number % len(SNAKE_COLORS)]
     game_canvas.draw_element(
         snakes_assets[color + " body"],
-        0,
         x,
         y,
         TILE_SIZE,
@@ -120,7 +114,6 @@ def draw_snake_head(
     color = SNAKE_COLORS[player_number % len(SNAKE_COLORS)]
     game_canvas.draw_element(
         snakes_assets[color + " head"],
-        0,
         x,
         y,
         TILE_SIZE,

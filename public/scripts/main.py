@@ -1,16 +1,15 @@
 from code_battles import CodeBattles, run_game
-from code_battles.utilities import download_images
 import api
-from api_implementation import APIImplementation
+from api_implementation import APIImplementation, PlayerRequests
 from game_renderer import render
 from game_simulator import simulate_step
 from game_state import GameState
 from constants import SNAKE_COLORS, BODY_PARTS, IMAGES_NAMES
 
 
-class BattleSnake(CodeBattles[GameState, APIImplementation, type(api)]):
+class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerRequests]):
     async def setup(self):
-        self.snakes = await download_images(
+        self.snakes = await self.download_images(
             [
                 (
                     color + " " + body_part,
@@ -20,7 +19,7 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api)]):
                 for body_part in BODY_PARTS
             ]
         )
-        self.assets = await download_images(
+        self.assets = await self.download_images(
             [
                 (
                     name,
@@ -41,26 +40,31 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api)]):
             self.assets,
         )
 
-    def simulate_step(self) -> None:
-        simulate_step(self.state, self.player_names, True, self)
+    def make_decisions(self) -> bytes:
+        for player_index in self.active_players:
+            self.player_requests[player_index].next_move = b"0" # no move
+            self.run_bot_method(player_index, "run")
+        return b"".join([self.player_requests[player_index].next_move for player_index in self.active_players])
+
+        
+
+    def apply_decisions(self, decisions: bytes) -> None:
+        pass
 
     def create_initial_state(self):
         return GameState(len(self.player_names))
+    
+    def create_initial_player_requests(self, player_index: int):
+        return PlayerRequests()
 
     def get_api(self):
         return api
 
-    def create_game_context(self, player_index: int):
-        return APIImplementation(self.state, player_index)
+    def create_api_implementation(self, player_index: int):
+        return APIImplementation(player_index, self.state, self.player_requests[player_index])
 
-    def get_extra_height(self):
+    def configure_extra_height(self):
         return 180
-
-    def get_steps_per_second(self):
-        return 20
-
-    def get_board_count(self):
-        return 1
 
 
 if __name__ == "__main__":
