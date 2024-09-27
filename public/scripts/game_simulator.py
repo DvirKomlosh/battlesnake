@@ -93,7 +93,6 @@ def simulate_step(
         # else, if hit another head, test
         for player_index2, player2 in state.active_players:
             if player_index2 != player_index and player2.head == player.head:
-                # print("head to head collision")
                 if player2.length >= player.length:
                     eliminate.add((player_index, player))
 

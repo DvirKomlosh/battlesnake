@@ -30,9 +30,10 @@ class APIImplementation(API):
     ### API IMPLEMENTATION ###
 
     def set_direction(self, direction):
+        if type(direction) is not str:
+            return Exceptions.INVALID_DIRECTION
         if direction not in "LRUD":
             return Exceptions.INVALID_DIRECTION
-
         self._requests.next_move = direction.encode("ascii")
 
     def get_myself(self) -> PlayerState:

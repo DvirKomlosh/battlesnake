@@ -14,6 +14,15 @@ SNAKE_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
 TEXT_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
 BODY_PARTS = ["body", "head"]
 
+DECISION_TO_VEC = {
+    "U": UP,
+    "D": DOWN,
+    "R": RIGHT,
+    "L": LEFT,
+    "0": None
+}
+
+
 DIRECTION_TO_ROTATION = {
     RIGHT: 0,
     DOWN: math.pi / 2,
