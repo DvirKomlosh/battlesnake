@@ -13,9 +13,7 @@ export default defineConfig({
     fs: {
       allow: [
         searchForWorkspaceRoot(process.cwd()),
-        searchForWorkspaceRoot(
-          join(process.cwd(), "..", "code-battles-components")
-        ),
+        searchForWorkspaceRoot(join(process.cwd(), "..", "code-battles")),
       ],
     },
   },
