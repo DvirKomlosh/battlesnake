@@ -2,9 +2,13 @@
 
 from typing import Dict, Tuple
 from game_state import GameState
-from js import Image
 from code_battles.utilities import GameCanvas
 from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION, TEXT_COLORS
+
+try:
+    import js
+except Exception:
+    pass
 
 # TODO: make hirerchies
 # a render element that has a father, and renders reletive to the father (gets rotation,size etc from him)
@@ -22,9 +26,9 @@ def render(
     player_count: int,
     game: GameState,
     player_names: list[str],
-    map_image: Image,
-    snakes_assets: Dict[str, Image],
-    assets: Dict[str, Image],
+    map_image: "js.Image",
+    snakes_assets: Dict[str, "js.Image"],
+    assets: Dict[str, "js.Image"],
 ):
     game_canvas.clear()
 
@@ -103,6 +107,7 @@ def draw_snake_body(game_canvas: GameCanvas, snakes_assets, player_number, coord
         y,
         TILE_SIZE,
     )
+
 
 def draw_snake_head(
     game_canvas: GameCanvas, snakes_assets, player_number, coords, last_move

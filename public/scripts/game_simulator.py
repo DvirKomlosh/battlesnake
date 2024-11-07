@@ -6,17 +6,16 @@ are run immediately before it and should keep information in the game state.
 """
 
 import math
-import time
-import random
+from random import Random
 from typing import Tuple
+from code_battles.battles import CodeBattles
 from constants import MAX_APPLES
 from game_state import GameState, PlayerState
-from code_battles.utilities import console_log
 
 to_eliminate = []
 
 
-def add_to_result(state: GameState):
+def add_to_result(state: GameState, random: Random):
     global to_eliminate
     while len(to_eliminate) > 0:
         random_player = to_eliminate[math.floor(random.random() * len(to_eliminate))]
@@ -25,7 +24,13 @@ def add_to_result(state: GameState):
 
 
 def eliminate_player(
-    state: GameState, player_names, player, player_index, message, verbose, battles
+    state: GameState,
+    player_names,
+    player,
+    player_index,
+    message,
+    verbose,
+    battles: CodeBattles,
 ):
     global to_eliminate
     state.active_player_indices.remove(player_index)
@@ -33,14 +38,22 @@ def eliminate_player(
     battles.eliminate_player(player_index, message)
 
 
-def eat_apple(state: GameState, player: PlayerState, position: Tuple[int, int], battles):
+def eat_apple(
+    state: GameState,
+    player: PlayerState,
+    position: Tuple[int, int],
+    battles: CodeBattles,
+):
     state.apples.remove(position)
     player.eat()
     battles.play_sound("apple")
 
 
 def simulate_step(
-    state: GameState, player_names: list[str], verbose: bool = True, battles=None
+    state: GameState,
+    player_names: list[str],
+    verbose: bool = True,
+    battles: CodeBattles = None,
 ) -> None:
     state.steps += 1
     if state.steps == 1:
@@ -110,9 +123,9 @@ def simulate_step(
     for player_index, player in state.active_players:
         player.health -= 1
         if player.head in state.apples:
-            console_log(
+            battles.log(
+                f"[Game T{battles.step}] Player #{player_index + 1} ({battles.player_names[player_index]}) ate an apple!",
                 -1,
-                f"[Game {state.time}s] Player #{player_index + 1} ({battles.player_names[player_index]}) ate an apple!",
                 "white",
             )
             eat_apple(state, player, player.head, battles)
@@ -130,7 +143,7 @@ def simulate_step(
         player.last_move = player.next_move
         player.next_move = None
 
-    add_to_result(state)
+    add_to_result(state, battles.random)
     if len(state.active_player_indices) == 1:
         state.results.append(state.active_player_indices[0])
 
@@ -138,9 +151,9 @@ def simulate_step(
         return (player_names, state.results[::-1], "NYC")
 
     if len(state.apples) < MAX_APPLES:
-        state.add_apple()
-        console_log(
+        state.add_apple(battles.random)
+        battles.log(
+            f"[Game T{battles.step}] An apple was created at {state.apples[-1]}!",
             -1,
-            f"[Game {state.time}s] An apple was created at {state.apples[-1]}!",
             "white",
         )

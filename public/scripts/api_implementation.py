@@ -8,7 +8,7 @@ It also has access to its player's index.
 
 from typing import List, Tuple
 from api import API, Exceptions
-from code_battles.utilities import console_log
+from code_battles.battles import CodeBattles
 from game_state import GameState, PlayerState
 from constants import UP, DOWN, LEFT, RIGHT
 
@@ -18,14 +18,22 @@ class PlayerRequests:
 
 
 class APIImplementation(API):
+    _battles: CodeBattles
     _player_index: int
     _state: GameState
     _requests: PlayerRequests
 
-    def __init__(self, player_index: int, state: GameState, requests: PlayerRequests) -> None:
+    def __init__(
+        self,
+        player_index: int,
+        state: GameState,
+        requests: PlayerRequests,
+        battles: CodeBattles,
+    ) -> None:
         self._player_index = player_index
         self._state = state
         self._requests = requests
+        self._battles = battles
 
     ### API IMPLEMENTATION ###
 
@@ -68,22 +76,22 @@ class APIImplementation(API):
         return player.has_eaten_last_step
 
     def log_info(self, text: str):
-        console_log(
+        self._battles.log(
+            f"[INFO T{self._battles.step}] {text}",
             self._player_index,
-            f"[INFO {str(self._state.time).rjust(8)}s] {text}",
             "#f8f8f2",
         )
 
     def log_warning(self, text: str):
-        console_log(
+        self._battles.log(
+            f"[WARNING T{self._battles.step}] {text}",
             self._player_index,
-            f"[WARNING {str(self._state.time).rjust(5)}s] {text}",
             "#f1fa8c",
         )
 
     def log_error(self, text: str):
-        console_log(
+        self._battles.log(
+            f"[ERROR T{self._battles.step}] {text}",
             self._player_index,
-            f"[ERROR {str(self._state.time).rjust(7)}s] {text}",
             "#ff5555",
         )

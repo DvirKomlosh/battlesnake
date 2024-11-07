@@ -42,27 +42,29 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
 
     def make_decisions(self) -> bytes:
         for player_index in self.active_players:
-            self.player_requests[player_index].next_move = b"0" # no move
+            self.player_requests[player_index].next_move = b"0"  # no move
             self.run_bot_method(player_index, "run")
-        decisions = b"".join([self.player_requests[player_index].next_move for player_index in self.active_players])
-        
+        decisions = b"".join(
+            [
+                self.player_requests[player_index].next_move
+                for player_index in self.active_players
+            ]
+        )
+
         return decisions
 
-        
-
     def apply_decisions(self, decisions: bytes) -> None:
-        
         decision_arr = [decision for decision in decisions.decode("ascii")]
-        for i,player_index in enumerate(self.active_players):
-            
-            self.state.players[player_index].next_move = DECISION_TO_VEC[decision_arr[i]]
-        
+        for i, player_index in enumerate(self.active_players):
+            self.state.players[player_index].next_move = DECISION_TO_VEC[
+                decision_arr[i]
+            ]
+
         simulate_step(self.state, self.player_names, True, self)
 
-
     def create_initial_state(self):
-        return GameState(len(self.player_names))
-    
+        return GameState(len(self.player_names), self.random)
+
     def create_initial_player_requests(self, player_index: int):
         return PlayerRequests()
 
@@ -70,7 +72,9 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
         return api
 
     def create_api_implementation(self, player_index: int):
-        return APIImplementation(player_index, self.state, self.player_requests[player_index])
+        return APIImplementation(
+            player_index, self.state, self.player_requests[player_index], self
+        )
 
     def configure_extra_height(self):
         return 180

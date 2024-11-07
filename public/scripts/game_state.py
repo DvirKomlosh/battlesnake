@@ -6,7 +6,7 @@ For example, there must be some variables which are set from the user APIs,
 and variables corresponding to the position of every game object.
 """
 
-import random
+from random import Random
 from typing import List, Tuple
 from constants import STEPS_PER_SECOND, MAX_HEALTH
 from enum import Enum
@@ -58,15 +58,15 @@ class GameState:
     results: List[int]
     active_player_indices: List[int]
 
-    def __init__(self, players: int):
+    def __init__(self, players: int, random: Random):
         self.active_player_indices = [i for i in range(players)]
-        player_positions = self.get_random_player_positions(players)
+        player_positions = self.get_random_player_positions(players, random)
         self.players = [PlayerState([pos]) for pos in player_positions]
         self.apples = []
         self.steps = 0
-        self.add_apple()
-        self.add_apple()
-        self.add_apple()
+        self.add_apple(random)
+        self.add_apple(random)
+        self.add_apple(random)
 
         self.results = []
 
@@ -115,7 +115,7 @@ class GameState:
     def is_over(self):
         return len(self.active_player_indices) <= 1
 
-    def add_apple(self):
+    def add_apple(self, random: Random):
         unoccupied = self.unoccupied_tiles
         new_apple_index = random.randint(0, len(unoccupied) - 1)
         new_apple = unoccupied[new_apple_index]
@@ -128,7 +128,7 @@ class GameState:
             return False
         return True
 
-    def get_random_player_positions(self, players: int):
+    def get_random_player_positions(self, players: int, random: Random):
         positions = []
         unoccupied = [(i, j) for i in range(self.width) for j in range(self.height)]
         for i in range(players):
