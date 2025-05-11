@@ -7,7 +7,7 @@ It also has access to its player's index.
 """
 
 from typing import List, Tuple
-from api import API, Exceptions
+from api import API, Result
 from code_battles.battles import CodeBattles
 from game_state import GameState, PlayerState
 from constants import UP, DOWN, LEFT, RIGHT
@@ -39,9 +39,9 @@ class APIImplementation(API):
 
     def set_direction(self, direction):
         if type(direction) is not str:
-            return Exceptions.INVALID_DIRECTION
+            return Result.INVALID_DIRECTION
         if direction not in "LRUD":
-            return Exceptions.INVALID_DIRECTION
+            return Result.INVALID_DIRECTION
         self._requests.next_move = direction.encode("ascii")
 
     def get_myself(self) -> PlayerState:

@@ -1,7 +1,7 @@
 """
 Welcome to the API Documentation!
 
-You probably want to get started with `Context` methods, and have a look at `Exceptions`.
+You probably want to get started with `API` methods, and have a look at `Result`.
 """
 
 from enum import Enum
@@ -25,10 +25,10 @@ class PlayerState:
     """The location list of everything but the head of the snake."""
 
 
-class Exceptions(Enum):
+class Result(Enum):
     """
     An enum representing result of API methods.
-    See each method for a list of possible exceptions.
+    See each method for a list of possible results.
     If a method was successful, it always returns `OK`.
     """
 
@@ -36,7 +36,7 @@ class Exceptions(Enum):
     INVALID_DIRECTION = 1
 
     def __bool__(self):
-        return self == Exceptions.OK
+        return self == Result.OK
 
 
 class API:
@@ -44,7 +44,7 @@ class API:
     test
     The main access point for your bot. Access this using `self.context` inside your `run` method.
 
-    Each action method returns `Exceptions`, which is `Exceptions.OK` if it succeeded, or another value explaining why it failed.
+    Each action method returns `Result`, which is `Result.OK` if it succeeded, or another value explaining why it failed.
     """
 
     def set_direction(self, direction: str):
@@ -184,3 +184,6 @@ class CodeBattlesBot:
         """
 
         pass
+
+Context = API
+Exceptions = Result
