@@ -13,24 +13,24 @@
     "semi": false
   },
   "dependencies": {
-    "@mantine/core": "^7.14.0",
-    "@mantine/dates": "^7.14.0",
-    "@mantine/dropzone": "^7.14.0",
-    "@mantine/hooks": "^7.14.0",
-    "@mantine/notifications": "^7.14.0",
-    "code-battles": "^1.5.9",
+    "@mantine/core": "^7.17.7",
+    "@mantine/dates": "^7.17.7",
+    "@mantine/dropzone": "^7.17.7",
+    "@mantine/hooks": "^7.17.7",
+    "@mantine/notifications": "^7.17.7",
+    "code-battles": "^1.7.0",
     "dayjs": "^1.11.13",
     "firebase": "^10.14.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.30.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react-swc": "^3.7.1",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11",
-    "vite-plugin-code-battles": "^1.0.10"
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "typescript": "^5.8.3",
+    "vite": "^5.4.19",
+    "vite-plugin-code-battles": "^1.0.11"
   }
 }

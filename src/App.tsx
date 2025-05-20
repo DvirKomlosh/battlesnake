@@ -7,7 +7,8 @@ const App = () => {
     <CodeBattles
       configuration={{
         firebase: config,
-        maps: ["NYC"],
+        parameters: { map: ["NYC"] },
+        parameterIcons: { map: "fa-solid fa-globe-americas" },
         runningCountOptions: [10, 100, 1000],
       }}
       routes={{}}
