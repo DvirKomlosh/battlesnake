@@ -1,10 +1,10 @@
-from code_battles import CodeBattles, run_game
 import api
 from api_implementation import APIImplementation, PlayerRequests
+from code_battles import CodeBattles, run_game
+from constants import BODY_PARTS, DECISION_TO_VEC, IMAGES_NAMES, SNAKE_COLORS
 from game_renderer import render
 from game_simulator import simulate_step
 from game_state import GameState
-from constants import SNAKE_COLORS, BODY_PARTS, IMAGES_NAMES, DECISION_TO_VEC
 
 
 class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerRequests]):
@@ -60,6 +60,12 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
                 decision_arr[i]
             ]
 
+        max_snake_length = max([len(snake.body) for snake in self.state.players])
+        self.max_snake_length = max(
+            self.max_snake_length if hasattr(self, "max_snake_length") else 0,
+            max_snake_length,
+        )
+
         simulate_step(self.state, self.player_names, True, self)
 
     def create_initial_state(self):
@@ -78,6 +84,9 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
 
     def configure_extra_height(self):
         return 180
+
+    def get_statistics(self):
+        return {"Snake Length": self.max_snake_length}
 
 
 if __name__ == "__main__":

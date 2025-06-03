@@ -8,6 +8,7 @@ are run immediately before it and should keep information in the game state.
 import math
 from random import Random
 from typing import Tuple
+
 from code_battles.battles import CodeBattles
 from constants import MAX_APPLES
 from game_state import GameState, PlayerState
