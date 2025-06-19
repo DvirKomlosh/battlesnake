@@ -60,13 +60,10 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
                 decision_arr[i]
             ]
 
-        max_snake_length = max([len(snake.body) for snake in self.state.players])
-        self.max_snake_length = max(
-            self.max_snake_length if hasattr(self, "max_snake_length") else 0,
-            max_snake_length,
-        )
-
-        simulate_step(self.state, self.player_names, True, self)
+        result = simulate_step(self.state, self.player_names, True, self)
+        if result is not None:  # game ended
+            self.max_snake_length = max([snake.length for snake in self.state.players])
+            self.game_length = self.step
 
     def create_initial_state(self):
         return GameState(len(self.player_names), self.random)
@@ -86,7 +83,7 @@ class BattleSnake(CodeBattles[GameState, APIImplementation, type(api), PlayerReq
         return 180
 
     def get_statistics(self):
-        return {"Snake Length": self.max_snake_length}
+        return {"Snake Length": self.max_snake_length, "Game Length": self.game_length}
 
 
 if __name__ == "__main__":
