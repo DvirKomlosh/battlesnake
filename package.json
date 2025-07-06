@@ -19,7 +19,7 @@
     "@mantine/dropzone": "^8.1.2",
     "@mantine/hooks": "^8.1.2",
     "@mantine/notifications": "^8.1.2",
-    "code-battles": "^1.7.9",
+    "code-battles": "^1.7.11",
     "dayjs": "^1.11.13",
     "firebase": "^11.10.0",
     "react": "^19.1.0",
@@ -31,6 +31,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
+    "firebase-tools": "^14.9.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.2",
     "vite-plugin-code-battles": "^1.0.16"
