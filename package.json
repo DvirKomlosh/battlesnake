@@ -13,26 +13,26 @@
     "semi": false
   },
   "dependencies": {
-    "@mantine/charts": "^8.0.1",
-    "@mantine/core": "^8.0.1",
-    "@mantine/dates": "^8.0.1",
-    "@mantine/dropzone": "^8.0.1",
-    "@mantine/hooks": "^8.0.1",
-    "@mantine/notifications": "^8.0.1",
-    "code-battles": "^1.7.5",
+    "@mantine/charts": "^8.1.2",
+    "@mantine/core": "^8.1.2",
+    "@mantine/dates": "^8.1.2",
+    "@mantine/dropzone": "^8.1.2",
+    "@mantine/hooks": "^8.1.2",
+    "@mantine/notifications": "^8.1.2",
+    "code-battles": "^1.7.9",
     "dayjs": "^1.11.13",
-    "firebase": "^11.7.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.0",
-    "recharts": "^2.15.3"
+    "firebase": "^11.10.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.3",
+    "recharts": "^2.15.4"
   },
   "devDependencies": {
-    "@types/react": "^18.3.21",
-    "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react-swc": "^3.9.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
     "typescript": "^5.8.3",
-    "vite": "^5.4.19",
-    "vite-plugin-code-battles": "^1.0.11"
+    "vite": "^7.0.2",
+    "vite-plugin-code-battles": "^1.0.16"
   }
 }
