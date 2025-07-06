@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import math
-import random
 
 # """Amount of steps in a single second"""
 STEPS_PER_SECOND = 1
@@ -14,13 +15,7 @@ SNAKE_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
 TEXT_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
 BODY_PARTS = ["body", "head"]
 
-DECISION_TO_VEC = {
-    "U": UP,
-    "D": DOWN,
-    "R": RIGHT,
-    "L": LEFT,
-    "0": None
-}
+DECISION_TO_VEC = {"U": UP, "D": DOWN, "R": RIGHT, "L": LEFT, "0": None}
 
 
 DIRECTION_TO_ROTATION = {

@@ -5,6 +5,8 @@ It is not responsible for running the Player APIs, but the Player APIs
 are run immediately before it and should keep information in the game state.
 """
 
+from __future__ import annotations
+
 import math
 from random import Random
 from typing import Tuple

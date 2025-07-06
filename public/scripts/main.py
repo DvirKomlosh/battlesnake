@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import api
 from api_implementation import APIImplementation, PlayerRequests
 from code_battles import CodeBattles, run_game

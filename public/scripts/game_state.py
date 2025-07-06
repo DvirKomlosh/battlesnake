@@ -6,10 +6,12 @@ For example, there must be some variables which are set from the user APIs,
 and variables corresponding to the position of every game object.
 """
 
+from __future__ import annotations
+
 from random import Random
 from typing import List, Tuple
-from constants import STEPS_PER_SECOND, MAX_HEALTH
-from enum import Enum
+
+from constants import MAX_HEALTH, STEPS_PER_SECOND
 
 
 class PlayerState:
@@ -136,4 +138,5 @@ class GameState:
             new_position = unoccupied[new_position_index]
             positions.append(new_position)
             unoccupied.remove(new_position)
+        return positions
         return positions

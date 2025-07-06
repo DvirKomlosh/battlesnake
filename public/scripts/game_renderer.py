@@ -1,9 +1,11 @@
-""" """
+from __future__ import annotations
 
 from typing import Dict, Tuple
-from game_state import GameState
+
 from code_battles.utilities import GameCanvas
-from constants import SNAKE_COLORS, TILE_SIZE, DIRECTION_TO_ROTATION, TEXT_COLORS
+from constants import (DIRECTION_TO_ROTATION, SNAKE_COLORS, TEXT_COLORS,
+                       TILE_SIZE)
+from game_state import GameState
 
 try:
     import js
@@ -121,5 +123,7 @@ def draw_snake_head(
         x,
         y,
         TILE_SIZE,
+        direction=DIRECTION_TO_ROTATION[last_move],
+    )
         direction=DIRECTION_TO_ROTATION[last_move],
     )

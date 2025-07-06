@@ -4,6 +4,8 @@ Welcome to the API Documentation!
 You probably want to get started with `API` methods, and have a look at `Result`.
 """
 
+from __future__ import annotations
+
 from enum import Enum
 from typing import List, Tuple
 
@@ -184,6 +186,7 @@ class CodeBattlesBot:
         """
 
         pass
+
 
 Context = API
 Exceptions = Result

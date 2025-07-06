@@ -6,11 +6,13 @@ It has access to the game's state, and can change it accordingly.
 It also has access to its player's index.
 """
 
+from __future__ import annotations
+
 from typing import List, Tuple
+
 from api import API, Result
 from code_battles.battles import CodeBattles
 from game_state import GameState, PlayerState
-from constants import UP, DOWN, LEFT, RIGHT
 
 
 class PlayerRequests:
