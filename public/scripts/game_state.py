@@ -139,4 +139,3 @@ class GameState:
             positions.append(new_position)
             unoccupied.remove(new_position)
         return positions
-        return positions
