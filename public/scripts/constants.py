@@ -11,8 +11,8 @@ RIGHT = (1, 0)
 LEFT = (-1, 0)
 
 IMAGES_NAMES = ["empty", "apple"]
-SNAKE_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
-TEXT_COLORS = ["red", "brown", "green", "yellow", "black", "blue", "purple"]
+SNAKE_COLORS = ["red", "yellow", "brown", "black", "green", "purple", "blue"]
+TEXT_COLORS = ["red", "yellow", "brown", "black", "green", "purple", "blue"]
 BODY_PARTS = ["body", "head"]
 
 DECISION_TO_VEC = {"U": UP, "D": DOWN, "R": RIGHT, "L": LEFT, "0": None}
