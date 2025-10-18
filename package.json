@@ -19,7 +19,7 @@
     "@mantine/dropzone": "^8.1.2",
     "@mantine/hooks": "^8.1.2",
     "@mantine/notifications": "^8.1.2",
-    "code-battles": "^1.7.11",
+    "code-battles": "^1.7.12",
     "dayjs": "^1.11.13",
     "firebase": "^11.10.0",
     "react": "^19.1.0",
