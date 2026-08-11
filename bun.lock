@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "code-battles",
@@ -10,7 +11,7 @@
         "@mantine/dropzone": "^8.1.2",
         "@mantine/hooks": "^8.1.2",
         "@mantine/notifications": "^8.1.2",
-        "code-battles": "^1.7.12",
+        "code-battles": "^1.7.13",
         "dayjs": "^1.11.13",
         "firebase": "^11.10.0",
         "react": "^19.1.0",
@@ -538,7 +539,7 @@
 
     "clsx": ["clsx@2.1.1", "", {}, "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA=="],
 
-    "code-battles": ["code-battles@1.7.12", "", { "dependencies": { "@fortawesome/fontawesome-free": "^6.7.2", "prismjs": "^1.30.0", "react-countdown": "^2.3.6", "react-firebase-hooks": "^5.1.1" }, "peerDependencies": { "@mantine/charts": "^8.1.2", "@mantine/core": "^8.1.2", "@mantine/dates": "^8.1.2", "@mantine/dropzone": "^8.1.2", "@mantine/hooks": "^8.1.2", "@mantine/notifications": "^8.1.2", "dayjs": "^1.11.13", "firebase": "^11.10.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-router-dom": "^7.6.3", "recharts": "^2.15.4" } }, "sha512-uUShw0XTAZ7dTvcsSUbQurBCwvLEW2COvOGr85h+F5C49FcuOvj3upx6lEC4QFJf9G9ZiEySfSMQlh7byBPEAw=="],
+    "code-battles": ["code-battles@1.7.13", "", { "dependencies": { "@fortawesome/fontawesome-free": "^6.7.2", "prismjs": "^1.30.0", "react-countdown": "^2.3.6", "react-firebase-hooks": "^5.1.1" }, "peerDependencies": { "@mantine/charts": "^8.1.2", "@mantine/core": "^8.1.2", "@mantine/dates": "^8.1.2", "@mantine/dropzone": "^8.1.2", "@mantine/hooks": "^8.1.2", "@mantine/notifications": "^8.1.2", "dayjs": "^1.11.13", "firebase": "^11.10.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-router-dom": "^7.6.3", "recharts": "^2.15.4" } }, "sha512-ayGZ/Zbym19Yq7HWlCbo9ryhXVcP0zAiksUbdnZHLhXpoJ8sqUfMK2geG2gf0gG/2ZTvwlkqf93SA3ExK0cOFg=="],
 
     "color": ["color@3.2.1", "", { "dependencies": { "color-convert": "^1.9.3", "color-string": "^1.6.0" } }, "sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA=="],
 
